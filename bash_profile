@@ -4,15 +4,13 @@
 # Don't put duplicate lines or lines starting with space in history.
 # See bash(1) for more options
 HISTCONTROL=ignoreboth
-
 HISTSIZE=-1
 HISTFILESIZE=-1
-
 
 shopt -s histappend
 PROMPT_COMMAND="history -a;$PROMPT_COMMAND"
 
-
+# Give us all the open files
 ulimit -n 65536 65536
 
 # Turn on pretty colors
@@ -20,7 +18,11 @@ export CLICOLOR=1
 export LSCOLORS=ExFxCxDxBxegedabagacad
 
 # Set path, giving /usr/local priority
-PATH=~/bin:/usr/local/bin:/usr/local/sbin:"${PATH}"
+PATH=$HOME/bin:/usr/local/bin:/usr/local/sbin:"${PATH}"
+
+if [ -d $HOME/.juju-plugins ]; then
+    PATH=$PATH:$HOME/.juju-plugins
+fi
 
 # Include my Perl libraries
 # export PERL5LIB=~/lib:"${PERL5LIB}"
@@ -49,10 +51,8 @@ fi
 export SVN_EDITOR=/usr/bin/vim
 
 
-PATH=$PATH:$HOME/.juju-plugins
-
+# OS X-specific stuff
 if [ "$(uname)" == "Darwin"]; then
-    # OS X-specific stuff
     # Go go Gadget Go!
     GOVERSION=$(brew list go | head -n 1 | cut -d '/' -f 6)
     export GOPATH=$HOME/.go
