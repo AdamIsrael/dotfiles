@@ -1,14 +1,11 @@
 
-# History
-
-# Don't put duplicate lines or lines starting with space in history.
-# See bash(1) for more options
-HISTCONTROL=ignoreboth
-HISTSIZE=-1
-HISTFILESIZE=-1
-
+# Make Bash history sane across terminals
+HISTCONTROL=ignoreboth:erasedups
+#HISTSIZE=-1
+#HISTFILESIZE=-1
 shopt -s histappend
-PROMPT_COMMAND="history -a;$PROMPT_COMMAND"
+# PROMPT_COMMAND="history -a;$PROMPT_COMMAND"
+export PROMPT_COMMAND="${PROMPT_COMMAND:+$PROMPT_COMMAND$'\n'}history -a; history -c; history -r"
 
 # Give us all the open files
 ulimit -n 65536 65536
@@ -52,7 +49,7 @@ export SVN_EDITOR=/usr/bin/vim
 
 
 # OS X-specific stuff
-if [ "$(uname)" == "Darwin"]; then
+if [ "$(uname)" == "Darwin" ]; then
     # Go go Gadget Go!
     GOVERSION=$(brew list go | head -n 1 | cut -d '/' -f 6)
     export GOPATH=$HOME/.go
