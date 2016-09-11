@@ -83,3 +83,9 @@ if [ -d $HOME/google-cloud-sdk ]; then
     # The next line enables shell command completion for gcloud.
     source '/Users/stone/google-cloud-sdk/completion.bash.inc'
 fi
+
+# Add support for Juju
+if [ -d $HOME/charms ]; then
+    export INTERFACE_PATH=$HOME/charms/interfaces
+    export JUJU_REPOSITORY=$HOME/charms
+fi
