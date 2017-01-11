@@ -1,11 +1,9 @@
 
 # Make Bash history sane across terminals
-HISTCONTROL=ignoreboth:erasedups
-#HISTSIZE=-1
-#HISTFILESIZE=-1
 shopt -s histappend
-# PROMPT_COMMAND="history -a;$PROMPT_COMMAND"
-export PROMPT_COMMAND="${PROMPT_COMMAND:+$PROMPT_COMMAND$'\n'}history -a; history -c; history -r"
+export PROMPT_COMMAND="history -a; history -c; history -r; $PROMPT_COMMAND"
+
+#export PROMPT_COMMAND="${PROMPT_COMMAND:+$PROMPT_COMMAND$'\n'}history -a; history -c; history -r"
 
 # Give us all the open files
 ulimit -n 65536 65536
@@ -16,6 +14,13 @@ export LSCOLORS=ExFxCxDxBxegedabagacad
 
 # Set path, giving /usr/local priority
 PATH=$HOME/bin:/usr/local/bin:/usr/local/sbin:"${PATH}"
+
+# Load up ssh key(s)
+if [ -z "$SSH_AUTH_SOCK" ] ; then
+  eval `ssh-agent -s`
+  ssh-add
+fi
+
 
 if [ -d $HOME/.juju-plugins ]; then
     PATH=$PATH:$HOME/.juju-plugins
@@ -89,3 +94,4 @@ if [ -d $HOME/charms ]; then
     export INTERFACE_PATH=$HOME/charms/interfaces
     export JUJU_REPOSITORY=$HOME/charms
 fi
+PATH=$PATH:$HOME/.juju-plugins
