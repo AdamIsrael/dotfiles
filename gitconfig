@@ -1,0 +1,10 @@
+[user]
+	email = adam.israel@canonical.com
+	name = Adam Israel
+[push]
+	default = simple
+[core]
+	editor = vim
+[credential]
+    helper = store --file $HOME/.git-credentials
+    helper = cache --timeout 30000
