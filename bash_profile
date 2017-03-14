@@ -6,7 +6,7 @@ export PROMPT_COMMAND="history -a; history -c; history -r; $PROMPT_COMMAND"
 #export PROMPT_COMMAND="${PROMPT_COMMAND:+$PROMPT_COMMAND$'\n'}history -a; history -c; history -r"
 
 # Give us all the open files
-ulimit -n 65536 65536
+# ulimit -n 65536 65536
 
 # Turn on pretty colors
 export CLICOLOR=1
@@ -21,6 +21,10 @@ if [ -z "$SSH_AUTH_SOCK" ] ; then
   ssh-add
 fi
 
+if [ -d $HOME/go ]; then
+    export GOPATH=$HOME/go 
+    PATH=$GOPATH/bin:$PATH
+fi
 
 if [ -d $HOME/.juju-plugins ]; then
     PATH=$PATH:$HOME/.juju-plugins
