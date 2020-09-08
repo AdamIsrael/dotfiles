@@ -2,41 +2,33 @@
 # export PATH=$HOME/bin:/usr/local/bin:$PATH
 
 # Check for oh-my-zsh: https://ohmyz.sh/
-
 if [[ -a ~/.oh-my-zsh ]]; then
     # Path to your oh-my-zsh installation.
     export ZSH=/home/stone/.oh-my-zsh
+    export ZSH_CUSTOM=$HOME/.dotfiles/zsh
 
     # Which plugins would you like to load? (plugins can be found in ~/.oh-my-zsh/plugins/*)
     # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
     # Example format: plugins=(rails git textmate ruby lighthouse)
     # Add wisely, as too many plugins slow down shell startup.
     plugins=(
-      git
-      golang
-      python
-      desk
-      #common-aliases
-      gpg-agent
-    
+        git
+        golang
+        # Useful if using perlbrew
+        # perl
+        # Competion for pip
+        pip
+        python
+        #common-aliases
+        gpg-agent
     )
-    
+
+    ZSH_THEME="bira-custom"
+
+    # Source this after all ZSH-related options are set
     source $ZSH/oh-my-zsh.sh
 
 fi
-
-# Set name of the theme to load. Optionally, if you set this to "random"
-# it'll load a random theme each time that oh-my-zsh is loaded.
-# See https://github.com/robbyrussell/oh-my-zsh/wiki/Themes
-# ZSH_THEME="robbyrussell"
-ZSH_THEME="bira-custom"
-
-# Set list of themes to load
-# Setting this variable when ZSH_THEME=random
-# cause zsh load theme from this variable instead of
-# looking in ~/.oh-my-zsh/themes/
-# An empty array have no effect
-# ZSH_THEME_RANDOM_CANDIDATES=( "robbyrussell" "agnoster" )
 
 # Uncomment the following line to use case-sensitive completion.
 # CASE_SENSITIVE="true"
@@ -72,9 +64,6 @@ ZSH_THEME="bira-custom"
 # stamp shown in the history command output.
 # The optional three formats: "mm/dd/yyyy"|"dd.mm.yyyy"|"yyyy-mm-dd"
 # HIST_STAMPS="mm/dd/yyyy"
-
-# Would you like to use another custom folder than $ZSH/custom?
-# ZSH_CUSTOM=/path/to/new-custom-folder
 
 # User configuration
 
@@ -116,7 +105,7 @@ export PATH=/usr/local/nodejs/bin:/snap/bin:$HOME/.local/bin:$HOME/bin:$GOPATH/b
 export GOBIN=$GOPATH/bin
 
 # Hook for desk activation
-[ -n "$DESK_ENV" ] && source "$DESK_ENV" || true
+#[ -n "$DESK_ENV" ] && source "$DESK_ENV" || true
 
 # Use the microk8s docker for docker
 #export DOCKER_HOST=unix:///var/snap/microk8s/current/docker.sock
@@ -135,6 +124,13 @@ PERL5LIB="$HOME/perl5/lib/perl5${PERL5LIB:+:${PERL5LIB}}"; export PERL5LIB;
 # Bash completions
 autoload bashcompinit
 bashcompinit
-source ~/.bash_completion.d/python-argcomplete.sh
-source ~/.bash_completion.d/wp-completion.bash
-source /snap/lxd/current/etc/bash_completion.d/snap.lxd.lxc
+
+if [[ -a $HOME/.bash_completion.d/python-argcomplete.sh ]]; then
+    source ~/.bash_completion.d/python-argcomplete.sh
+fi
+
+if [[ -a $HOME/.bash_completion.d/wp-completion.bash ]]; then
+    source ~/.bash_completion.d/wp-completion.bash
+fi
+
+#source /snap/lxd/current/etc/bash_completion.d/snap.lxd.lxc
