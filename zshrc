@@ -1,8 +1,29 @@
 # If you come from bash you might have to change your $PATH.
 # export PATH=$HOME/bin:/usr/local/bin:$PATH
 
-# Path to your oh-my-zsh installation.
-export ZSH=/home/stone/.oh-my-zsh
+# Check for oh-my-zsh: https://ohmyz.sh/
+
+if [[ -a ~/.oh-my-zsh ]]; then
+    # Path to your oh-my-zsh installation.
+    export ZSH=/home/stone/.oh-my-zsh
+
+    # Which plugins would you like to load? (plugins can be found in ~/.oh-my-zsh/plugins/*)
+    # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
+    # Example format: plugins=(rails git textmate ruby lighthouse)
+    # Add wisely, as too many plugins slow down shell startup.
+    plugins=(
+      git
+      golang
+      python
+      desk
+      #common-aliases
+      gpg-agent
+    
+    )
+    
+    source $ZSH/oh-my-zsh.sh
+
+fi
 
 # Set name of the theme to load. Optionally, if you set this to "random"
 # it'll load a random theme each time that oh-my-zsh is loaded.
@@ -55,22 +76,6 @@ ZSH_THEME="bira-custom"
 # Would you like to use another custom folder than $ZSH/custom?
 # ZSH_CUSTOM=/path/to/new-custom-folder
 
-# Which plugins would you like to load? (plugins can be found in ~/.oh-my-zsh/plugins/*)
-# Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
-# Example format: plugins=(rails git textmate ruby lighthouse)
-# Add wisely, as too many plugins slow down shell startup.
-plugins=(
-  git
-  golang
-  python
-  desk
-  #common-aliases
-  gpg-agent
-
-)
-
-source $ZSH/oh-my-zsh.sh
-
 # User configuration
 
 # export MANPATH="/usr/local/man:$MANPATH"
@@ -100,7 +105,9 @@ source $ZSH/oh-my-zsh.sh
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 
-source $HOME/.aliases
+if [[ -a $HOME/.aliases ]]; then
+    source $HOME/.aliases
+fi
 
 # Golang config
 export GOPATH=$HOME/go
@@ -114,14 +121,15 @@ export GOBIN=$GOPATH/bin
 # Use the microk8s docker for docker
 #export DOCKER_HOST=unix:///var/snap/microk8s/current/docker.sock
 
-PATH="/home/stone/perl5/bin${PATH:+:${PATH}}"; export PATH;
+# Perl bits
+PATH="$HOME/perl5/bin${PATH:+:${PATH}}"; export PATH;
 
 # Perlbrew
-source ~/perl5/perlbrew/etc/bashrc
-PERL5LIB="/home/stone/perl5/lib/perl5${PERL5LIB:+:${PERL5LIB}}"; export PERL5LIB;
-#PERL_LOCAL_LIB_ROOT="/home/stone/perl5${PERL_LOCAL_LIB_ROOT:+:${PERL_LOCAL_LIB_ROOT}}"; export PERL_LOCAL_LIB_ROOT;
-#PERL_MB_OPT="--install_base \"/home/stone/perl5\""; export PERL_MB_OPT;
-#PERL_MM_OPT="INSTALL_BASE=/home/stone/perl5"; export PERL_MM_OPT;
+if [[ -a $HOME/perl5/perlbrew/etc/bashrc ]]; then
+    source $HOME/perl5/perlbrew/etc/bashrc
+fi
+
+PERL5LIB="$HOME/perl5/lib/perl5${PERL5LIB:+:${PERL5LIB}}"; export PERL5LIB;
 
 
 # Bash completions
@@ -129,4 +137,4 @@ autoload bashcompinit
 bashcompinit
 source ~/.bash_completion.d/python-argcomplete.sh
 source ~/.bash_completion.d/wp-completion.bash
-#source /snap/lxd/current/etc/bash_completion.d/snap.lxd.lxc
+source /snap/lxd/current/etc/bash_completion.d/snap.lxd.lxc
