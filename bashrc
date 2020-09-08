@@ -128,4 +128,28 @@ export JUJU_REPOSITORY=$HOME/charms
 export INTERFACE_PATH=$JUJU_REPOSITORY/interfaces
 export LAYER_PATH=$JUJU_REPOSITORY/layers
 
+proxied_git () 
+( 
+export GIT_PROXY_COMMAND=/tmp/gitproxy;
+
+cat  > $GIT_PROXY_COMMAND <<EOF
+#!/bin/bash
+/usr/bin/socat - PROXY:localhost:osm.etsi.org:29418,proxyport=8888
+EOF
+chmod +x $GIT_PROXY_COMMAND;
+
+git "$@"
+)
+
 [ -r /home/stone/.byobu/prompt ] && . /home/stone/.byobu/prompt   #byobu-prompt#
+
+# QUICK HACK: move this to a separate file to be sourced
+export GITHUB_TOKEN=570a380b6d7f55d598c77f182bcfe4ecd6575bf5
+
+
+export OPENMANO_HOST=localhost
+
+export OPENMANO_PORT=9090
+. /home/stone/.bash_completion.d/python-argcomplete.sh
+
+export WINEARCH=win32
