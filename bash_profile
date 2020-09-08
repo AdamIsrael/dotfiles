@@ -16,10 +16,12 @@ export LSCOLORS=ExFxCxDxBxegedabagacad
 PATH=$HOME/bin:$HOME/go/bin:/usr/local/bin:/usr/local/sbin:"${PATH}"
 
 # Load up ssh key(s)
-if [ -z "$SSH_AUTH_SOCK" ] ; then
-  eval `ssh-agent -s`
-  ssh-add
-fi
+#if [ -z "$SSH_AUTH_SOCK" ] ; then
+#  eval `ssh-agent -s`
+#  ssh-add $HOME/.ssh/id_launchpad_rsa
+#  ssh-add $HOME/.ssh/id_github_rsa
+#  ssh-add $HOME/.ssh/id_rsa
+#fi
 
 if [ -d $HOME/go ]; then
     export GOPATH=$HOME/go 
@@ -99,3 +101,5 @@ if [ -d $HOME/charms ]; then
     export JUJU_REPOSITORY=$HOME/charms
 fi
 PATH=$PATH:$HOME/.juju-plugins
+
+[[ -s "$HOME/.rvm/scripts/rvm" ]] && source "$HOME/.rvm/scripts/rvm" # Load RVM into a shell session *as a function*
