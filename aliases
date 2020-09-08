@@ -1,0 +1,10 @@
+
+# Use the gibhub-friendly hub
+alias git="hub"
+
+# Make diff more readable
+alias diff="diff -y"
+
+# Readability
+alias df="df -x'squashfs' -x'overlay' -x'tmpfs'"
+alias mount="mount -t nosquashfs,nocgroup"
