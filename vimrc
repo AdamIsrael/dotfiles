@@ -1,3 +1,14 @@
+set nocompatible
+
+set number
+set autoindent
+set background=dark
+set encoding=utf-8
+set nomodeline
+set hidden
+
+:color desert
+
 filetype plugin indent on
 " show existing tab with 4 spaces width
 set tabstop=4

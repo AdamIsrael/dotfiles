@@ -143,13 +143,26 @@ git "$@"
 
 [ -r /home/stone/.byobu/prompt ] && . /home/stone/.byobu/prompt   #byobu-prompt#
 
-# QUICK HACK: move this to a separate file to be sourced
 export GITHUB_TOKEN=570a380b6d7f55d598c77f182bcfe4ecd6575bf5
 
-
-export OPENMANO_HOST=localhost
-
-export OPENMANO_PORT=9090
 . /home/stone/.bash_completion.d/python-argcomplete.sh
 
 export WINEARCH=win32
+# Add RVM to PATH for scripting. Make sure this is the last PATH variable change.
+export PATH="$PATH:$HOME/.rvm/bin"
+export PATH="$HOME/.local/bin:$PATH"
+
+# Golang
+export GOPATH=$HOME/go
+
+# The One True Editor
+export EDITOR="vim"
+
+# Use a decent prompt
+[[ $- = *i* ]] && source ~/liquidprompt/liquidprompt
+
+PATH="/home/stone/perl5/bin${PATH:+:${PATH}}"; export PATH;
+PERL5LIB="/home/stone/perl5/lib/perl5${PERL5LIB:+:${PERL5LIB}}"; export PERL5LIB;
+PERL_LOCAL_LIB_ROOT="/home/stone/perl5${PERL_LOCAL_LIB_ROOT:+:${PERL_LOCAL_LIB_ROOT}}"; export PERL_LOCAL_LIB_ROOT;
+PERL_MB_OPT="--install_base \"/home/stone/perl5\""; export PERL_MB_OPT;
+PERL_MM_OPT="INSTALL_BASE=/home/stone/perl5"; export PERL_MM_OPT;
