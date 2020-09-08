@@ -13,7 +13,7 @@ export CLICOLOR=1
 export LSCOLORS=ExFxCxDxBxegedabagacad
 
 # Set path, giving /usr/local priority
-PATH=$HOME/bin:/usr/local/bin:/usr/local/sbin:"${PATH}"
+PATH=$HOME/bin:$HOME/go/bin:/usr/local/bin:/usr/local/sbin:"${PATH}"
 
 # Load up ssh key(s)
 if [ -z "$SSH_AUTH_SOCK" ] ; then

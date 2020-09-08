@@ -1,0 +1,32 @@
+# The default workspace
+# These are the things every "workspace" should have
+
+# Path
+PATH=$HOME/bin:$HOME/go/bin:/usr/local/bin:/usr/local/sbin:"${PATH}"
+
+# Juju
+if [ -d $HOME/charms ]; then
+    export JUJU_REPOSITORY=$HOME/charms
+    export INTERFACE_PATH=$JUJU_REPOSITORY/interfaces
+    export LAYER_PATH=$JUJU_REPOSITORY/layers
+fi
+if [ -d $HOME/.juju-plugins ]; then
+    PATH=$PATH:$HOME/.juju-plugins
+fi
+
+# Git
+export GIT_AUTHOR_EMAIL=adam@adamisrael.com
+export GIT_COMMITTER_EMAIL=$GIT_AUTHOR_EMAIL
+
+# Github
+export GITHUB_TOKEN=570a380b6d7f55d598c77f182bcfe4ecd6575bf5
+
+# Golang
+if [ -d $HOME/go ]; then
+    export GOPATH=$HOME/go
+    PATH=$GOPATH/bin:$PATH
+fi
+
+# Wine configuration
+export WINEARCH=win32
+
