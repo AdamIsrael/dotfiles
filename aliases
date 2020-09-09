@@ -1,6 +1,8 @@
 
 # Use the gibhub-friendly hub
-alias git="hub"
+if [[ -a hub ]]; then
+    alias git="hub"
+fi
 
 # Make diff more readable
 alias diff="diff -y"
