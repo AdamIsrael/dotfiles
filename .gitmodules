@@ -1,0 +1,3 @@
+[submodule "zsh/plugins/lxd-completion-zsh"]
+	path = zsh/plugins/lxd-completion-zsh
+	url = https://github.com/endaaman/lxd-completion-zsh
