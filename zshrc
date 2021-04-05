@@ -21,6 +21,11 @@ if [[ -a ~/.oh-my-zsh ]]; then
         python
         #common-aliases
         gpg-agent
+        lxd-completion-zsh
+        # highlight commands in green that are available
+        zsh-syntax-highlighting
+        # workspace manager
+        desk
     )
 
     ZSH_THEME="bira-custom"
@@ -105,7 +110,7 @@ export PATH=/usr/local/nodejs/bin:/snap/bin:$HOME/.local/bin:$HOME/bin:$GOPATH/b
 export GOBIN=$GOPATH/bin
 
 # Hook for desk activation
-#[ -n "$DESK_ENV" ] && source "$DESK_ENV" || true
+[ -n "$DESK_ENV" ] && source "$DESK_ENV" || true
 
 # Use the microk8s docker for docker
 #export DOCKER_HOST=unix:///var/snap/microk8s/current/docker.sock
@@ -120,7 +125,6 @@ fi
 
 PERL5LIB="$HOME/perl5/lib/perl5${PERL5LIB:+:${PERL5LIB}}"; export PERL5LIB;
 
-
 # Bash completions
 autoload bashcompinit
 bashcompinit
@@ -133,4 +137,5 @@ if [[ -a $HOME/.bash_completion.d/wp-completion.bash ]]; then
     source ~/.bash_completion.d/wp-completion.bash
 fi
 
+# This is looking for a _have function that may be bash-specific
 #source /snap/lxd/current/etc/bash_completion.d/snap.lxd.lxc
