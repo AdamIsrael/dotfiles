@@ -10,3 +10,6 @@ alias diff="diff -y"
 # Readability
 alias df="df -x'squashfs' -x'overlay' -x'tmpfs'"
 alias mount="mount -t nosquashfs,nocgroup"
+
+# json_pp
+alias json_pp="json_pp -json_opt canonical,pretty"
