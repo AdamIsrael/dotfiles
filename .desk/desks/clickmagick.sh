@@ -3,7 +3,7 @@
 cd ~/ClickMagick
 
 # Set the DSN to use for the MySQL database
-export DBI_DSN="DBI:mysql(RaiseError=>1,PrintError=>0):clickmagick;localhost;mysql_read_default_file=/etc/mysql/mysql.conf.d/my.local.cnf"
+export DBI_DSN="DBI:mysql(RaiseError=>1,PrintError=>0):mag;localhost;mysql_read_default_file=/etc/mysql/mysql.conf.d/my.local.cnf"
 
 # ENV for integration tests
 export CM_API_USER=test

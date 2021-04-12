@@ -1,10 +1,10 @@
-# Description: Vapor.io workspace 
+# Description: Vapor.io workspace
 
 cd ~/Vapor
 
 # Increment refcount
 
-# Set environment variable(s) 
+# Set environment variable(s)
 export PATH=$PATH:~/Vapor/bin
 
 # Set alias(s)
@@ -16,20 +16,34 @@ export PATH=$PATH:~/Vapor/bin
 
 # functions
 
+# Open a Deployment Tools shell
+dt() {
+    docker run -ti --rm -v $HOME:/localhost --privileged vaporio/deployment-tools:latest /bin/bash
+}
+
 # Start microk8s
-startk8s() {}
+k8s-up() {
+    sudo snap start microk8s
+    microk8s status --wait-ready
+}
 
 # Stop microk8s
-stopk8s() {}
+k8s-down() {
+    sudo snap stop microk8s
+}
 
 # Bring up the vpn
-startvpn() {
-    nmcli c up vapor
+vpn-up() {
+    sudo tailscale up --accept-routes
+}
+
+vpn-status() {
+    tailscale status
 }
 
 # Bring down the vpn
-stopvpn() {
-    nmcli c down vapor
+vpn-down() {
+    sudo tailscale down
 }
 
 # Push code to maidalchini
