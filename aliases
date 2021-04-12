@@ -13,3 +13,8 @@ alias mount="mount -t nosquashfs,nocgroup"
 
 # json_pp
 alias json_pp="json_pp -json_opt canonical,pretty"
+
+# Kubernetes
+alias kubectl='microk8s kubectl'
+
+
