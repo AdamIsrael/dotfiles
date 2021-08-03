@@ -5,7 +5,7 @@ setopt shwordsplit
 # Local variables
 VAPOR_HOME=~/Vapor
 HELM_HOME=~/.helm
-GH_REPOS="cloud-infra cloud-ops consumer-api containerlog deployment-tools edge-monitor ouroboros sctl synse-charts synse-docs vator"
+GH_REPOS="cloud-infra cloud-ops consumer-api containerlog deployment-tools edge-events edge-ops ouroboros sctl synse-charts synse-docs vator"
 
 # Make sure local Vapor path exists
 if [[ ! -a $VAPOR_HOME ]]; then
