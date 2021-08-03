@@ -11,6 +11,7 @@ On OS X:
 
 ```bash
 brew install gnupg
+brew install desk
 ```
 
 ```bash
