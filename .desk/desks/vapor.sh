@@ -2,12 +2,18 @@
 
 setopt shwordsplit
 
-cd ~/Vapor
-
 # Local variables
 VAPOR_HOME=~/Vapor
 HELM_HOME=~/.helm
 GH_REPOS="cloud-infra cloud-ops consumer-api containerlog deployment-tools edge-monitor ouroboros sctl synse-charts synse-docs vator"
+
+# Make sure local Vapor path exists
+if [[ ! -a $VAPOR_HOME ]]; then
+    echo "Creating $VAPOR_HOME..."
+    mkdir $VAPOR_HOME
+fi
+
+cd $VAPOR_HOME
 
 # Set environment variable(s)
 export PATH=$PATH:~/Vapor/bin
@@ -20,15 +26,22 @@ export OUR_GH_TOKEN=$GITHUB_ACCESS_TOKEN
 ################
 
 # Link helm to helm3. Do not use microk8s.helm3; it's too old.
-alias helm="helm3"
-alias kubectl="microk8s.kubectl"
+if type "helm3" > /dev/null; then
+    alias helm="helm3"
+fi
+
+if type "microk8s.kubectl" > /dev/null; then
+    alias kubectl="microk8s.kubectl"
+fi
 
 #####################
 # Autocompletion(s) #
 #####################
 
-# To be tested
-source <(kubectl completion zsh)  # setup autocomplete in zsh into the current shell
+# kubectl
+if type "kubectl" > /dev/null; then
+    source <(kubectl completion zsh)  # setup autocomplete in zsh into the current shell
+fi
 
 #############
 # functions #
@@ -67,30 +80,66 @@ gh-pull-all() {
 
 # Start microk8s
 k8s-up() {
-    sudo snap start microk8s
-    microk8s status --wait-ready
+    case "$OSTYPE" in
+    darwin*)
+        # ...
+    ;;
+    linux*)
+        sudo snap start microk8s
+        microk8s status --wait-ready
+    ;;
+    esac
 }
 
 # Stop microk8s
 k8s-down() {
-    sudo snap stop microk8s
+    case "$OSTYPE" in
+    darwin*)
+        # ...
+    ;;
+    linux*)
+        sudo snap stop microk8s
+    ;;
+    esac
 }
 
 # Bring up the vpn
 vpn-up() {
-    sudo tailscale up --accept-routes
+    case "$OSTYPE" in
+    darwin*)
+        # ...
+    ;;
+    linux*)
+        sudo tailscale up --accept-routes
+    ;;
+    esac
+
 }
 
 vpn-status() {
-    tailscale status
+    case "$OSTYPE" in
+    darwin*)
+        # ...
+    ;;
+    linux*)
+        tailscale status
+    ;;
+    esac
 }
 
 # Bring down the vpn
 vpn-down() {
-    sudo tailscale down
+    case "$OSTYPE" in
+    darwin*)
+        # ...
+    ;;
+    linux*)
+        sudo tailscale down
 
-    # TODO: Reconnect to wifi to clear the DNS
-    # AP=$(nmcli -t connection show --active| head -n 1 | awk -F: '{print $1}')
-    # nmcli connection down $AP
-    # nmcli connection up $AP
+        # TODO: Reconnect to wifi to clear the DNS
+        # AP=$(nmcli -t connection show --active| head -n 1 | awk -F: '{print $1}')
+        # nmcli connection down $AP
+        # nmcli connection up $AP
+    ;;
+    esac
 }
