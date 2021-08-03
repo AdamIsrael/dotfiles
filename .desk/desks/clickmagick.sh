@@ -23,12 +23,12 @@ export MAILCATCHER_PORT=1080
 # functions
 
 # Bring up the vpn
-upvpn() {
+vpn-up() {
     nmcli c up clickmagick
 }
 
 # Bring down the vpn
-downvpn() {
+vpn-down() {
     nmcli c down clickmagick
 }
 

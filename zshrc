@@ -103,6 +103,9 @@ if [[ -a $HOME/.aliases ]]; then
     source $HOME/.aliases
 fi
 
+# Github
+export GITHUB_ACCESS_TOKEN=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
+
 # Golang config
 export GOPATH=$HOME/go
 
@@ -139,3 +142,10 @@ fi
 
 # This is looking for a _have function that may be bash-specific
 #source /snap/lxd/current/etc/bash_completion.d/snap.lxd.lxc
+
+# ktx
+source "${HOME}"/.ktx
+source "${HOME}"/.ktx-completion.sh
+
+export PATH="$HOME/.poetry/bin:$PATH"
+export PYTHONPATH=/usr/local/lib/python3/dist-packages/:$PYTHONPATH
