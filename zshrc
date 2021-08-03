@@ -4,7 +4,7 @@
 # Check for oh-my-zsh: https://ohmyz.sh/
 if [[ -a ~/.oh-my-zsh ]]; then
     # Path to your oh-my-zsh installation.
-    export ZSH=/home/stone/.oh-my-zsh
+    export ZSH=$HOME/.oh-my-zsh
     export ZSH_CUSTOM=$HOME/.dotfiles/zsh
 
     # Which plugins would you like to load? (plugins can be found in ~/.oh-my-zsh/plugins/*)
@@ -103,8 +103,10 @@ if [[ -a $HOME/.aliases ]]; then
     source $HOME/.aliases
 fi
 
-# Github
-export GITHUB_ACCESS_TOKEN=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
+# If present, source our secrets/tokens/etc
+if [[ -a $HOME/.secrets ]]; then
+    source $HOME/.secrets
+fi
 
 # Golang config
 export GOPATH=$HOME/go
@@ -144,8 +146,11 @@ fi
 #source /snap/lxd/current/etc/bash_completion.d/snap.lxd.lxc
 
 # ktx
-source "${HOME}"/.ktx
-source "${HOME}"/.ktx-completion.sh
+if [[ -a ~/.ktx ]]; then
+    source "${HOME}"/.ktx
+    source "${HOME}"/.ktx-completion.sh
+fi
+
 
 export PATH="$HOME/.poetry/bin:$PATH"
 export PYTHONPATH=/usr/local/lib/python3/dist-packages/:$PYTHONPATH
