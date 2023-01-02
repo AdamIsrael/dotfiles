@@ -9,10 +9,73 @@ alias diff="diff -y"
 
 # Readability
 alias df="df -x'squashfs' -x'overlay' -x'tmpfs'"
-alias mount="mount -t nosquashfs,nocgroup"
+alias mount="mount -t nosquashfs,nocgroup,nsfs,tmpfs,overlay"
 
 # json_pp
 alias json_pp="json_pp -json_opt canonical,pretty"
 
 # Kubernetes
-alias kubectl='microk8s kubectl'
+if [[ -a microk8s ]]; then
+    alias kubectl='microk8s kubectl'
+fi
+
+# Default glow to use a pager
+alias glow="glow -p"
+
+
+## Functions
+
+# DANGER: doing this will remove any toolbox that isn't currently running.
+# Remove stopped docker containers
+# clean-containers() {
+#     docker container rm $(docker container ls -aq)
+# }
+
+
+# # Remove docker images
+# clean-images() {
+#     docker container rmi $(docker image ls -aq)
+# }
+
+
+# TODO: Check if tailscale is installed; i.e., check that we're not trying to run tailscale from a container.
+# Bring up the vpn
+vpn-up() {
+    case "$OSTYPE" in
+    darwin*)
+        # ...
+    ;;
+    linux*)
+        sudo tailscale up --accept-routes
+    ;;
+    esac
+
+}
+
+vpn-status() {
+    case "$OSTYPE" in
+    darwin*)
+        # ...
+    ;;
+    linux*)
+        tailscale status
+    ;;
+    esac
+}
+
+# Bring down the vpn
+vpn-down() {
+    case "$OSTYPE" in
+    darwin*)
+        # ...
+    ;;
+    linux*)
+        sudo tailscale down
+
+        # TODO: Reconnect to wifi to clear the DNS
+        # AP=$(nmcli -t connection show --active| head -n 1 | awk -F: '{print $1}')
+        # nmcli connection down $AP
+        # nmcli connection up $AP
+    ;;
+    esac
+}

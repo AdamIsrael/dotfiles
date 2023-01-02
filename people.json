@@ -1,0 +1,22 @@
+[
+  {
+    "name": "Marco",
+    "github": "marcoceppi",
+    "city": "Virginia",
+    "tz": "America/New_York"
+  },
+  {
+    "name": "Nidesh",
+    "gravatar": "nidesh@vapor.io",
+    "tz": "Asia/Katmandu"
+  },
+  {
+    "name": "Marquis",
+    "tz": "America/Chicago"
+  },
+  {
+    "name": "Kamil",
+    "city": "New Jersey",
+    "tz": "America/New_York"
+  }
+]

@@ -47,15 +47,7 @@ fi
 # functions #
 #############
 
-# Remove stopped docker containers
-docker-clean-containers() {
-    docker container rm $(docker container ls -aq)
-}
 
-# Remove docker images
-docker-clean-images() {
-    docker container rmi $(docker image ls -aq)
-}
 
 # Open a Deployment Tools shell
 dt() {
@@ -103,43 +95,3 @@ k8s-down() {
     esac
 }
 
-# Bring up the vpn
-vpn-up() {
-    case "$OSTYPE" in
-    darwin*)
-        # ...
-    ;;
-    linux*)
-        sudo tailscale up --accept-routes
-    ;;
-    esac
-
-}
-
-vpn-status() {
-    case "$OSTYPE" in
-    darwin*)
-        # ...
-    ;;
-    linux*)
-        tailscale status
-    ;;
-    esac
-}
-
-# Bring down the vpn
-vpn-down() {
-    case "$OSTYPE" in
-    darwin*)
-        # ...
-    ;;
-    linux*)
-        sudo tailscale down
-
-        # TODO: Reconnect to wifi to clear the DNS
-        # AP=$(nmcli -t connection show --active| head -n 1 | awk -F: '{print $1}')
-        # nmcli connection down $AP
-        # nmcli connection up $AP
-    ;;
-    esac
-}

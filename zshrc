@@ -18,14 +18,16 @@ if [[ -a ~/.oh-my-zsh ]]; then
         # perl
         # Competion for pip
         pip
+        # pyenv
         python
         #common-aliases
         gpg-agent
-        lxd-completion-zsh
+        #lxd-completion-zsh
+        zsh-autosuggestions
         # highlight commands in green that are available
         zsh-syntax-highlighting
         # workspace manager
-        desk
+        # desk
     )
 
     ZSH_THEME="bira-custom"
@@ -111,24 +113,24 @@ fi
 # Golang config
 export GOPATH=$HOME/go
 
-export PATH=/usr/local/nodejs/bin:/snap/bin:$HOME/.local/bin:$HOME/bin:$GOPATH/bin:/usr/local/bin:/usr/local/sbin:"${PATH}"
+export PATH=$HOME/.local/go/bin:$HOME/.local/bin:$HOME/bin:$GOPATH/bin:/usr/local/bin:/usr/local/sbin:"${PATH}"
 export GOBIN=$GOPATH/bin
 
 # Hook for desk activation
-[ -n "$DESK_ENV" ] && source "$DESK_ENV" || true
+#[ -n "$DESK_ENV" ] && source "$DESK_ENV" || true
 
 # Use the microk8s docker for docker
 #export DOCKER_HOST=unix:///var/snap/microk8s/current/docker.sock
 
 # Perl bits
-PATH="$HOME/perl5/bin${PATH:+:${PATH}}"; export PATH;
+#PATH="$HOME/perl5/bin${PATH:+:${PATH}}"; export PATH;
 
 # Perlbrew
-if [[ -a $HOME/perl5/perlbrew/etc/bashrc ]]; then
-    source $HOME/perl5/perlbrew/etc/bashrc
-fi
+#if [[ -a $HOME/perl5/perlbrew/etc/bashrc ]]; then
+#    source $HOME/perl5/perlbrew/etc/bashrc
+#fi
 
-PERL5LIB="$HOME/perl5/lib/perl5${PERL5LIB:+:${PERL5LIB}}"; export PERL5LIB;
+#PERL5LIB="$HOME/perl5/lib/perl5${PERL5LIB:+:${PERL5LIB}}"; export PERL5LIB;
 
 # Bash completions
 autoload bashcompinit
@@ -142,9 +144,6 @@ if [[ -a $HOME/.bash_completion.d/wp-completion.bash ]]; then
     source ~/.bash_completion.d/wp-completion.bash
 fi
 
-# This is looking for a _have function that may be bash-specific
-#source /snap/lxd/current/etc/bash_completion.d/snap.lxd.lxc
-
 # ktx
 if [[ -a ~/.ktx ]]; then
     source "${HOME}"/.ktx
@@ -154,3 +153,21 @@ fi
 
 export PATH="$HOME/.poetry/bin:$PATH"
 export PYTHONPATH=/usr/local/lib/python3/dist-packages/:$PYTHONPATH
+
+if [ -f "/run/.containerenv" ]; then
+	export TOOLBOX_NAME=[$(cat /run/.containerenv | grep 'name=' | sed -e 's/^name="\(.*\)"$/\1/')]
+
+    # For now, only use starship inside a toolbox
+    # Start the starship.rs shell
+    eval "$(starship init zsh)"
+
+else
+	export TOOLBOX_NAME=""
+fi
+
+# Do a switch/case on toolbox name?
+# i.e., if I'm in the vapor toolbox I want ~/Vapor/bin added to my path
+
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
