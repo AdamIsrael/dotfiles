@@ -155,15 +155,14 @@ export PATH="$HOME/.poetry/bin:$PATH"
 export PYTHONPATH=/usr/local/lib/python3/dist-packages/:$PYTHONPATH
 
 if [ -f "/run/.containerenv" ]; then
-	export TOOLBOX_NAME=[$(cat /run/.containerenv | grep 'name=' | sed -e 's/^name="\(.*\)"$/\1/')]
-
-    # For now, only use starship inside a toolbox
-    # Start the starship.rs shell
-    eval "$(starship init zsh)"
-
+    # I don't think this is needed now. Containers now have a $CONTAINER_ID variable
+    export TOOLBOX_NAME=$CONTAINER_ID
 else
 	export TOOLBOX_NAME=""
 fi
+
+# I now have a `~/.config/starship.toml` that works with container names
+eval "$(starship init zsh)"
 
 # Do a switch/case on toolbox name?
 # i.e., if I'm in the vapor toolbox I want ~/Vapor/bin added to my path
