@@ -99,3 +99,6 @@ disabled = false
 # Disable the container module, because in a container it just displays "Systemd"
 [container]
 disabled = true
+
+[kubernetes]
+disabled = false
