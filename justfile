@@ -1,8 +1,7 @@
-# A Justfile to finish customizing Adam-OS post-install
+# A Justfile for updating/configuring my ublue post-install
 homedir := env_var('HOME')
 omz := path_exists(homedir + "/.oh-my-zsh")
 #omz := env_var('ZSH')
-
 
 
 default:
@@ -51,11 +50,21 @@ install-layered:
   gnome-shell-extension-frippery-move-clock
 
   # Install local package(s)
-  wget -q https://dev.mysql.com/get/Downloads/MySQLGUITools/mysql-workbench-community-8.0.31-1.fc37.x86_64.rpm && \
-    rpm-ostree install mysql-workbench-community-8.0.31-1.fc37.x86_64.rpm && \
-    rm mysql-workbench-community-8.0.31-1.fc37.x86_64.rpm
+  wget -q https://dev.mysql.com/get/Downloads/MySQLGUITools/mysql-workbench-community-8.0.34-1.el9.x86_64.rpm && \
+    rpm-ostree install mysql-workbench-community-8.0.34-1.el9.x86_64.rpm && \
+    rm mysql-workbench-community-8.0.34-1.el9.x86_64.rpm
 
-  rpm-ostree install --idempotent byobu fzf hugo nmap php podman-compose python-black tcpdump vim zsh && \
+  rpm-ostree install --idempotent \
+    byobu \
+    fzf \
+    hugo \
+    nmap \
+    # php \
+    podman-compose \
+    python-black \
+    tcpdump \
+    vim \
+    zsh && \
     ostree container commit
 
   # TBD: force a reboot at this point?
