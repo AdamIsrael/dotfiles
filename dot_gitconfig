@@ -6,8 +6,10 @@
 [core]
 	editor = vim
 [credential]
-	helper = "!f() { /var/home/stone/.vscode-server/bin/6445d93c81ebe42c4cbd7a60712e0b17d9463e97/node /tmp/vscode-remote-containers-3f7f7587-15c4-4f4f-bb9f-c3b735ad6379.js git-credential-helper $*; }; f"
+    helper = store --file $HOME/.git-credentials
+    helper = cache --timeout 30000
 [pull]
 	rebase = true
 [init]
-	defaultBranch = main
+        defaultBranch = main
+
