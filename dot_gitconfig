@@ -9,7 +9,7 @@
     helper = store --file $HOME/.git-credentials
     helper = cache --timeout 30000
 [pull]
-	rebase = true
+    rebase = true
 [init]
-        defaultBranch = main
+    defaultBranch = main
 
