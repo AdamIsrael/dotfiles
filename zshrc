@@ -113,7 +113,7 @@ fi
 # Golang config
 export GOPATH=$HOME/go
 
-export PATH=$HOME/.local/go/bin:$HOME/.local/bin:$HOME/bin:$GOPATH/bin:/usr/local/bin:/usr/local/sbin:"${PATH}"
+export PATH=$HOME/.local/go/bin:$HOME/.local/bin:$HOME/bin:$GOPATH/bin:/usr/local/bin:/usr/local/sbin:/usr/local/go/bin:"${PATH}"
 export GOBIN=$GOPATH/bin
 
 # Hook for desk activation
@@ -150,6 +150,8 @@ if [[ -a ~/.ktx ]]; then
     source "${HOME}"/.ktx-completion.sh
 fi
 
+# Kind -- enable the podman provider for rootless
+KIND_EXPERIMENTAL_PROVIDER=podman
 
 export PATH="$HOME/.poetry/bin:$PATH"
 export PYTHONPATH=/usr/local/lib/python3/dist-packages/:$PYTHONPATH
@@ -164,9 +166,14 @@ fi
 # I now have a `~/.config/starship.toml` that works with container names
 eval "$(starship init zsh)"
 
-# Do a switch/case on toolbox name?
-# i.e., if I'm in the vapor toolbox I want ~/Vapor/bin added to my path
-
 export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+
+# eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
+
+# OBS + Wayland
+export QT_QPA_PLATFORM=wayland
+
+[[ "$(command -v atuin)" ]] && eval "$(atuin init zsh)"
+source /var/home/stone/.fleek/init.sh

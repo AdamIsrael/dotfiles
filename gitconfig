@@ -3,10 +3,9 @@
 	name = Adam Israel
 [push]
 	default = simple
-[core]
-	editor = vim
 [credential]
-    helper = store --file $HOME/.git-credentials
-    helper = cache --timeout 30000
+	helper = "!f() { /var/home/stone/.vscode-server/bin/8b3775030ed1a69b13e4f4c628c612102e30a681/node /tmp/vscode-remote-containers-97c39e6f-8e82-447a-bfea-4efd0e41130d.js git-credential-helper $*; }; f"
 [pull]
 	rebase = true
+[safe]
+	directory = /var/home/stone/src/rust-gedcom

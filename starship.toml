@@ -24,7 +24,7 @@ $dart\
 $deno\
 $dotnet\
 $elixir\
-$elm\
+# $elm\
 $erlang\
 $golang\
 $guix_shell\
@@ -76,8 +76,6 @@ $battery\
 $time\
 $status\
 $os\
-$container\
-${custom.toolbox} \
 $shell\
 $character
 """
@@ -86,19 +84,18 @@ $character
 [character] # The name of the module we are configuring is 'character'
 success_symbol = '[➜](bold green)' # The 'success_symbol' segment is being set to '➜' with the color 'bold green'
 
-# Display the name of the container
-[custom.toolbox]
-description = "The activated toolbox container"
-command = "echo $(. /var/run/.containerenv; echo ${name})"
-when = """ [[ -f /run/.containerenv ]] """
-symbol = '⬢'
-style = "bold red dimmed"
-format = "[$symbol \\[$output\\]]($style) "
-disabled = false
-
-# Disable the container module, because in a container it just displays "Systemd"
 [container]
 disabled = true
 
 [kubernetes]
 disabled = false
+
+[hostname]
+ssh_only = false
+format = '[$hostname](bold purple) '
+disabled = false
+
+[username]
+format = '[$user@](bold blue)'
+disabled = false
+show_always = true
