@@ -1,18 +1,117 @@
-
-# Use the gibhub-friendly hub
-if [[ -a hub ]]; then
-    alias git="hub"
-fi
+# aliases
 
 # Make diff more readable
 alias diff="diff -y"
 
-# Readability
-alias df="df -x'squashfs' -x'overlay' -x'tmpfs'"
-alias mount="mount -t nosquashfs,nocgroup"
-
 # json_pp
 alias json_pp="json_pp -json_opt canonical,pretty"
 
+
+# Default glow to use a pager
+if [[ -a glow ]]; then
+    alias glow="glow -p"
+fi
+
 # Kubernetes
-alias kubectl='microk8s kubectl'
+alias k='kubectl'
+
+# Functions
+rust-coverage() {
+    usage="$(basename "$0") [-h]
+
+    where:
+        -h          show this help text
+    "
+
+    while getopts :h flag
+    do
+        case "${flag}" in
+            h)  echo "$usage"
+                return 0
+                ;;
+        esac
+    done
+
+    # Make sure we're in a rust project
+    if [ ! -f Cargo.toml ]; then
+        echo "Not in a Rust project."
+        return 1
+    fi
+
+    # Generate the coverage profile and open the coverage report
+    cargo llvm-cov --open
+}
+
+rust-coverage-tarpaulin() {
+    usage="$(basename "$0") [-h] [packages] -- [args]
+
+    where:
+        -h          show this help text
+        [packages]  the package(s) to test (default: ./...)
+        [args]      any additional arguments to pass to 'cargo test'
+    "
+
+    while getopts :h flag
+    do
+        case "${flag}" in
+            h)  echo "$usage"
+                return 0
+                ;;
+        esac
+    done
+
+    # Make sure we're in a rust project
+    if [ ! -f Cargo.toml ]; then
+        echo "Not in a Rust project."
+        return 1
+    fi
+
+    # Generate the coverage profile
+    if cargo tarpaulin --out Html; then
+        # Open the coverage html, which will give us a per-file
+        # breakdown of what code doesn't have test coverage.
+        open tarpaulin-report.html
+    else
+        echo "Failed to generate coverage report."
+        return 1
+    fi
+
+}
+
+go-coverage() {
+    usage="$(basename "$0") [-h] [packages] -- [args]
+
+    where:
+        -h          show this help text
+        [packages]  the package(s) to test (default: ./...)
+        [args]      any additional arguments to pass to 'go test'
+    "
+
+    while getopts :h flag
+    do
+        case "${flag}" in
+            h)  echo "$usage"
+                return 0
+                ;;
+        esac
+    done
+
+    PACKAGES="./..."
+    # Check if $1 is set
+    if [ -n "$1" ]; then
+        PACKAGES=$1
+    fi
+
+    # Generate the coverage profile
+    if go test -v -coverprofile=/tmp/coverage.$$ $PACKAGES; then
+        # Convert the test coverage output to an HTML file
+        go tool cover -html /tmp/coverage.$$ -o /tmp/coverage.$$.html
+
+        # Open the coverage html, which will give us a per-file
+        # breakdown of what code doesn't have test coverage.
+        open /tmp/coverage.$$.html
+    else
+        echo "Failed to generate coverage report."
+        return 1
+    fi
+}
