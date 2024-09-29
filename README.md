@@ -20,5 +20,6 @@ git clone https://github.com/AdamIsrael/dotfiles.git ~/.dotfiles
 # Initialize the submodules
 cd ~/.dotfiles/zsh/plugins
 git submodule update --init
-
 ```
+
+Symlink the dotfiles we want
