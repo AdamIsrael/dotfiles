@@ -1,6 +1,4 @@
-# If you come from bash you might have to change your $PATH.
-# export PATH=$HOME/bin:/usr/local/bin:$PATH
-
+# This is my main configuration file for ZSH.
 # Check for oh-my-zsh: https://ohmyz.sh/
 if [[ -a ~/.oh-my-zsh ]]; then
     # Path to your oh-my-zsh installation.
@@ -21,11 +19,11 @@ if [[ -a ~/.oh-my-zsh ]]; then
         python
         #common-aliases
         gpg-agent
-        lxd-completion-zsh
+        # lxd-completion-zsh
         # highlight commands in green that are available
         zsh-syntax-highlighting
         # workspace manager
-        desk
+        # desk
     )
 
     ZSH_THEME="bira-custom"
@@ -103,32 +101,30 @@ if [[ -a $HOME/.aliases ]]; then
     source $HOME/.aliases
 fi
 
-# If present, source our secrets/tokens/etc
+# If present, source our secrets/tokens/etc.
+# Never commit this file to a repo!
 if [[ -a $HOME/.secrets ]]; then
     source $HOME/.secrets
 fi
 
 # Golang config
 export GOPATH=$HOME/go
-
-export PATH=/usr/local/nodejs/bin:/snap/bin:$HOME/.local/bin:$HOME/bin:$GOPATH/bin:/usr/local/bin:/usr/local/sbin:"${PATH}"
 export GOBIN=$GOPATH/bin
 
-# Hook for desk activation
-[ -n "$DESK_ENV" ] && source "$DESK_ENV" || true
-
-# Use the microk8s docker for docker
-#export DOCKER_HOST=unix:///var/snap/microk8s/current/docker.sock
-
-# Perl bits
-PATH="$HOME/perl5/bin${PATH:+:${PATH}}"; export PATH;
-
-# Perlbrew
-if [[ -a $HOME/perl5/perlbrew/etc/bashrc ]]; then
-    source $HOME/perl5/perlbrew/etc/bashrc
+# Load the path based on which OS we're on
+if [[ $(uname) == "Darwin" ]]; then
+    export PATH=/Users/adam/Library/Python/3.8/bin:$HOME/.local/bin:$HOME/bin:$GOPATH/bin:/usr/local/bin:/usr/local/sbin:"${PATH}"
+else
+    export PATH=$HOME/.local/bin:$HOME/bin:$GOPATH/bin:/usr/local/bin:/usr/local/sbin:"${PATH}"
 fi
 
-PERL5LIB="$HOME/perl5/lib/perl5${PERL5LIB:+:${PERL5LIB}}"; export PERL5LIB;
+# Perlbrew, if installed
+if [[ -a $HOME/perl5/perlbrew/etc/bashrc ]]; then
+    PATH="$HOME/perl5/bin${PATH:+:${PATH}}"; export PATH;
+    source $HOME/perl5/perlbrew/etc/bashrc
+    PERL5LIB="$HOME/perl5/lib/perl5${PERL5LIB:+:${PERL5LIB}}"; export PERL5LIB;
+fi
+
 
 # Bash completions
 autoload bashcompinit
@@ -142,8 +138,6 @@ if [[ -a $HOME/.bash_completion.d/wp-completion.bash ]]; then
     source ~/.bash_completion.d/wp-completion.bash
 fi
 
-# This is looking for a _have function that may be bash-specific
-#source /snap/lxd/current/etc/bash_completion.d/snap.lxd.lxc
 
 # ktx
 if [[ -a ~/.ktx ]]; then
@@ -151,6 +145,16 @@ if [[ -a ~/.ktx ]]; then
     source "${HOME}"/.ktx-completion.sh
 fi
 
-
 export PATH="$HOME/.poetry/bin:$PATH"
 export PYTHONPATH=/usr/local/lib/python3/dist-packages/:$PYTHONPATH
+
+# brew
+eval $(/opt/homebrew/bin/brew shellenv)
+export PATH="/opt/homebrew/opt/php@8.0/bin:$PATH"
+export PATH="/opt/homebrew/opt/php@8.0/sbin:$PATH"
+
+# dir/dotenv
+eval "$(direnv hook zsh)"
+
+# Starship go!
+eval "$(starship init zsh)"
