@@ -1,8 +1,6 @@
 {
   description = "Example nix-darwin system flake";
 
-  environment.etc.nix-darwin.source = "/Users/adam/.dotfiles";
-
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
     nix-darwin.url = "github:nix-darwin/nix-darwin/master";
@@ -12,6 +10,7 @@
   outputs = inputs@{ self, nix-darwin, nixpkgs }:
   let
     configuration = { pkgs, ... }: {
+      environment.etc.nix-darwin.source = "/Users/adam/.dotfiles";
 
       system.primaryUser = "Adam Israel";
 
@@ -23,6 +22,10 @@
       # $ nix-env -qaP | grep wget
       environment.systemPackages =
         [
+          # Search tools
+          pkgs.ripgrep
+          pkgs.silver-searcher
+
           # Nix language server
           pkgs.nil
           pkgs.nixd
