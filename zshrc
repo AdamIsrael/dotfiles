@@ -150,14 +150,15 @@ export PYTHONPATH=/usr/local/lib/python3/dist-packages/:$PYTHONPATH
 
 # brew
 eval $(/opt/homebrew/bin/brew shellenv)
-export PATH="/opt/homebrew/opt/php@8.0/bin:$PATH"
-export PATH="/opt/homebrew/opt/php@8.0/sbin:$PATH"
+#export PATH="/opt/homebrew/opt/php@8.0/bin:$PATH"
+#export PATH="/opt/homebrew/opt/php@8.0/sbin:$PATH"
 
 # dir/dotenv
 eval "$(direnv hook zsh)"
 
 # Starship go!
 eval "$(starship init zsh)"
+
 # The following lines have been added by Docker Desktop to enable Docker CLI completions.
 fpath=(/Users/adam/.docker/completions $fpath)
 autoload -Uz compinit
