@@ -10,4 +10,10 @@ symlink:
 
 # Apply nix system configuration
 nix-switch:
-    @sudo darwin-rebuild switch --flake /Users/adam/.dotfiles#tatertot
+    #!/usr/bin/env bash
+    if [ -e /etc/NIXOS ]; then
+        sudo cp ~/.dotfiles/nixos/configuration.nix /etc/nixos
+        sudo nixos-rebuild switch
+    else
+        sudo darwin-rebuild switch --flake /Users/adam/.dotfiles#tatertot
+    fi
