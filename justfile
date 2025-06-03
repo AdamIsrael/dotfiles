@@ -5,7 +5,8 @@ default:
 
 # symlink dotfiles
 symlink:
-    @ln -sf justfile ~/justfile
+    @ln -sf `pwd`/justfile ~/justfile
+    @ln -sf `pwd`/gitconfig ~/.gitconfig
 
 # Apply nix system configuration
 nix-switch:
