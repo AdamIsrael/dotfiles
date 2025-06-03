@@ -7,3 +7,6 @@ sleep 0.3
 sleep 0.3
 #hyprpaper &
 firefox &
+sleep 0.3
+1password --silent &
+
