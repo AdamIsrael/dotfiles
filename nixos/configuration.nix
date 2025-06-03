@@ -168,7 +168,15 @@
     watch
     glow
     jq
+
+    # Fingerprint reader
+    fprintd
   ];
+
+  # Fingerprint reader
+  services.fprintd.enable = true;
+  services.fprintd.tod.enable = true;
+  services.fprintd.tod.driver = pkgs.libfprint-2-tod1-goodix;
 
   # Enables the 1Password CLI
   programs._1password = { enable = true; };
