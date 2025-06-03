@@ -1,6 +1,7 @@
 credentials
 flake.lock
 result
+.DS_Store
 
 # ignore nested symlinks
 config/hypr/hypr
