@@ -3,9 +3,9 @@
 sleep 0.3
 waybar &
 sleep 0.3
-#hypridle &
+hypridle &
 sleep 0.3
-#hyprpaper &
+hyprpaper &
 firefox &
 sleep 0.3
 1password --silent &
