@@ -1,8 +1,0 @@
-preload = /var/home/stone/Wallpaper/ubuntu-matrix.png
-preload = /var/home/stone/Wallpaper/79108790_2592512480827112_4195397477198725120_o.jpg
-
-wallpaper = eDP-1, /var/home/stone/Wallpaper/ubuntu-matrix.png
-wallpaper = DP-4, /var/home/stone/Wallpaper/79108790_2592512480827112_4195397477198725120_o.jpg
-
-# Enable splash text rendering over the wallpaper
-splash = true
