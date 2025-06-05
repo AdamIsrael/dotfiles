@@ -2,7 +2,7 @@
 # your system.  Help is available in the configuration.nix(5) man page
 # and in the NixOS manual (accessible by running ‘nixos-help’).
 
-{ config, pkgs, ... }:
+{ config, pkgs, lib, ... }:
 
 {
   imports =
@@ -78,6 +78,19 @@
     ];
   };
 
+  programs.zsh = {
+    enable = true;
+    # enableCompletions = true;
+    # autosuggestions.enable = true;
+    # syntaxHighlighting.enable = true;
+
+    # shellAliases = {
+    #   ll = "ls -l";
+    #   update = "sudo nixos-rebuild switch";
+    # };
+    # history.size = 10000;
+  };
+
   # Install firefox.
   programs.firefox.enable = true;
 
@@ -123,6 +136,7 @@
     # Terminals
     kitty
     ghostty
+    starship
 
     # git
     just
@@ -168,9 +182,20 @@
     watch
     glow
     jq
+    dropbox-cli
+    neofetch
 
     # Fingerprint reader
     fprintd
+
+    # Social Media
+    slack
+    discord
+    hexchat
+
+    # PIM
+    obsidian
+
   ];
 
   # Fingerprint reader
@@ -224,6 +249,32 @@
   # networking.firewall.allowedUDPPorts = [ ... ];
   # Or disable the firewall altogether.
   # networking.firewall.enable = false;
+
+  # Enable dropbox service
+  networking.firewall = {
+    allowedTCPPorts = [ 17500 ];
+    allowedUDPPorts = [ 17500 ];
+  };
+
+  systemd.user.services.dropbox = {
+    description = "Dropbox";
+    wantedBy = [ "graphical-session.target" ];
+    environment = {
+      QT_PLUGIN_PATH = "/run/current-system/sw/" + pkgs.qt5.qtbase.qtPluginPrefix;
+      QML2_IMPORT_PATH = "/run/current-system/sw/" + pkgs.qt5.qtbase.qtQmlPrefix;
+    };
+    serviceConfig = {
+      ExecStart = "${lib.getBin pkgs.dropbox}/bin/dropbox";
+      ExecReload = "${lib.getBin pkgs.coreutils}/bin/kill -HUP $MAINPID";
+      KillMode = "control-group"; # upstream recommends process
+      Restart = "on-failure";
+      PrivateTmp = true;
+      ProtectSystem = "full";
+      Nice = 10;
+    };
+  };
+
+
 
   # This value determines the NixOS release from which the default
   # settings for stateful data, like file locations and database versions

@@ -5,10 +5,12 @@ default:
 
 # symlink dotfiles
 symlink:
-    @ln -sf ~/.dotfiles/justfile ~/justfile
+    #@ln -sf ~/.dotfiles/justfile ~/justfile
     @ln -sf ~/.dotfiles/gitconfig ~/.gitconfig
     @ln -sf ~/.dotfiles/config/hypr ~/.config/hypr
     @ln -sf ~/.dotfiles/config/waybar ~/.config/waybar
+    @ln -sf ~/.dotfiles/ssh/config ~/.ssh/config
+    @ln -sf ~/.dotfiles/zshrc ~/.zshrc
 
 # Apply nix system configuration
 nix-switch:

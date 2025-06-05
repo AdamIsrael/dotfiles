@@ -6,7 +6,6 @@ sleep 0.3
 hypridle &
 sleep 0.3
 hyprpaper &
-firefox &
+# firefox &
 sleep 0.3
 1password --silent &
-
