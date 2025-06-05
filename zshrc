@@ -149,7 +149,9 @@ export PATH="$HOME/.poetry/bin:$PATH"
 export PYTHONPATH=/usr/local/lib/python3/dist-packages/:$PYTHONPATH
 
 # brew
-eval $(/opt/homebrew/bin/brew shellenv)
+if [[ -e /opt/homebrew/bin/brew ]]; then
+    eval $(/opt/homebrew/bin/brew shellenv)
+fi
 #export PATH="/opt/homebrew/opt/php@8.0/bin:$PATH"
 #export PATH="/opt/homebrew/opt/php@8.0/sbin:$PATH"
 
