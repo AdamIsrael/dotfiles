@@ -7,6 +7,7 @@
   # List packages installed in system profile. To search, run:
   # $ nix search wget
   environment.systemPackages = with pkgs; [
+    rust-petname
     gnome-themes-extra
     xdg-desktop-portal-hyprland
     # xdg-desktop-portal-gtk

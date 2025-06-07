@@ -4,6 +4,7 @@
     [ # import all of the nix files here
       ./packages.nix
       ./dropbox.nix
+      ./tailscale.nix
       ./tmux.nix
       ./zsh.nix
     ];
