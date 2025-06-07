@@ -109,8 +109,24 @@
 
   programs.tmux = {
     enable = true;
+    baseIndex = 0;
+    terminal = "screen-256color";
+
+    shortcut = "a";
+    newSession = true;
+
+    plugins = with pkgs; [
+      tmuxPlugins.pain-control
+      tmuxPlugins.sensible
+      tmuxPlugins.logging
+      tmuxPlugins.dracula
+    ];
+
     extraConfig = ''
-      set -g status-right "%H:%M"
+      # use zsh
+      set -g default-shell "${pkgs.zsh}/bin/zsh"
+
+      set -g status-right "%H:%fM"
       set -g window-status-current-style "underscore"
 
       # If running inside tmux ($TMUX is set), then change the status line to red
@@ -118,16 +134,12 @@
       set -g status-bg red
       %endif
 
-      # Enable RGB colour if running in xterm(1)
-      set-option -sa terminal-overrides ",xterm*:Tc"
-
       # Change the default $TERM to tmux-256color
       set -g default-terminal "tmux-256color"
 
       # Set pane border
       set -g pane-active-border-style "fg=#7aa2f7"
       set -g pane-border-style "fg=#444b6a"
-
 
       # No bells at all
       set -g bell-action none
@@ -139,7 +151,7 @@
 
       # force a reload of the config file
       unbind r
-      bind r source-file ~/.tmux.conf
+      bind r source-file /etc/tmux.conf
 
       # Turn the mouse on, but without copy mode dragging
       set -g mouse on
@@ -169,7 +181,7 @@
       # tmux-ram-usage, network, network-bandwidth, network-ping, ssh-session,
       # attached-clients, network-vpn, weather, time, mpc, spotify-tui,
       # playerctl, kubernetes-context, synchronize-panes
-      set -g @dracula-plugins "kubernetes-context cpu-usage ram-usage time"
+      set -g @dracula-plugins "cpu-usage ram-usage time"
 
       # Enable powerline glyphs
       set -g @dracula-show-powerline true
@@ -183,10 +195,6 @@
 
       # Initialize TMUX plugin manager (keep this line at the very bottom of tmux.conf)
       run '~/.tmux/plugins/tpm/tpm'
-
-      # ...
-      # set -g status-right '#[fg=black,bg=color15] #{cpu_percentage}  %H:%M '
-      # run-shell ${pkgs.tmuxPlugins.cpu}/share/tmux-plugins/cpu/cpu.tmux
     '';
   };
 
@@ -201,7 +209,10 @@
   programs.dconf.profiles.user.databases = [
     {
       settings."org/gnome/desktop/interface" = {
-        gtk-theme = "Adwaita";
+        # Prefer a dark theme
+        color-scheme = "prefer-dark";
+
+        gtk-theme = "Adwaita-dark";
         icon-theme = "Flat-Remix-Red-Dark";
         font-name = "Noto Sans Medium 11";
         document-font-name = "Noto Sans Medium 11";
@@ -217,6 +228,9 @@
   # List packages installed in system profile. To search, run:
   # $ nix search wget
   environment.systemPackages = with pkgs; [
+    gnome-themes-extra
+    xdg-desktop-portal-hyprland
+    # xdg-desktop-portal-gtk
   #  vim # Do not forget to add an editor to edit configuration.nix! The Nano editor is also installed by default.
   #  wget
     waybar
