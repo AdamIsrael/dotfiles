@@ -8,6 +8,7 @@
   imports =
     [ # Include the results of the hardware scan.
       ./hardware-configuration.nix
+      /home/stone/.dotfiles/nix
     ];
 
   # Bootloader.
@@ -74,131 +75,12 @@
     description = "Adam Israel";
     shell = pkgs.zsh;
     extraGroups = [ "networkmanager" "wheel" ];
-    packages = with pkgs; [
+    # packages = with pkgs; [
     #  thunderbird
-    ];
+    # ];
   };
 
-  programs.zsh = {
-    enable = true;
-    enableCompletion = true;
-    autosuggestions.enable = true;
-    syntaxHighlighting.enable = true;
 
-    ohMyZsh = {
-      enable = true;
-      plugins = [
-        "git"
-        #"z"
-      ];
-      theme = "robbyrussell";
-    };
-
-    shellAliases = {
-      ll = "ls -l";
-      # edit = "sudo -e";
-      update = "sudo nixos-rebuild switch";
-    };
-
-    histSize = 10000;
-    histFile = "$HOME/.zsh_history";
-    setOptions = [
-      "HIST_IGNORE_ALL_DUPS"
-    ];
-  };
-
-  programs.tmux = {
-    enable = true;
-    baseIndex = 0;
-    terminal = "screen-256color";
-
-    shortcut = "a";
-    newSession = true;
-
-    plugins = with pkgs; [
-      tmuxPlugins.pain-control
-      tmuxPlugins.sensible
-      tmuxPlugins.logging
-      tmuxPlugins.dracula
-    ];
-
-    extraConfig = ''
-      # use zsh
-      set -g default-shell "${pkgs.zsh}/bin/zsh"
-
-      set -g status-right "%H:%fM"
-      set -g window-status-current-style "underscore"
-
-      # If running inside tmux ($TMUX is set), then change the status line to red
-      %if #{TMUX}
-      set -g status-bg red
-      %endif
-
-      # Change the default $TERM to tmux-256color
-      set -g default-terminal "tmux-256color"
-
-      # Set pane border
-      set -g pane-active-border-style "fg=#7aa2f7"
-      set -g pane-border-style "fg=#444b6a"
-
-      # No bells at all
-      set -g bell-action none
-
-      # Change the prefix key to C-a
-      set -g prefix C-a
-      unbind C-b
-      bind C-a send-prefix
-
-      # force a reload of the config file
-      unbind r
-      bind r source-file /etc/tmux.conf
-
-      # Turn the mouse on, but without copy mode dragging
-      set -g mouse on
-
-      # Allow shift-arrow to navigate panes
-      bind -n S-Left  select-pane -L
-      bind -n S-Right select-pane -R
-      bind -n S-Up    select-pane -U
-      bind -n S-Down  select-pane -D
-
-      # Allow meta-arrow to navigate windows
-      bind -n M-Left  previous-window
-      bind -n M-Right next-window
-
-      # Setup tmux plugin manager
-      set -g @plugin 'tmux-plugins/tpm'
-
-      set -g @plugin 'tmux-plugins/tmux-pain-control'
-      set -g @plugin 'tmux-plugins/tmux-sensible'
-      set -g @plugin 'tmux-plugins/tmux-logging'
-
-      # Set theme - dracula
-      # See options here: https://draculatheme.com/tmux
-      set -g @plugin 'dracula/tmux'
-
-      # available plugins: battery, cpu-usage, git, gpu-usage, ram-usage,
-      # tmux-ram-usage, network, network-bandwidth, network-ping, ssh-session,
-      # attached-clients, network-vpn, weather, time, mpc, spotify-tui,
-      # playerctl, kubernetes-context, synchronize-panes
-      set -g @dracula-plugins "cpu-usage ram-usage time"
-
-      # Enable powerline glyphs
-      set -g @dracula-show-powerline true
-
-      # A faster refresh is nice, but may have performance impact (5)
-      set -g @dracula-refresh-rate 5
-
-      # `hostname` (full hostname), `session`, `shortname` (short name),
-      # `smiley`, `window`, or any character.
-      set -g @dracula-show-left-icon shortname
-
-      # Initialize TMUX plugin manager (keep this line at the very bottom of tmux.conf)
-      run '~/.tmux/plugins/tpm/tpm'
-    '';
-  };
-
-  # Install firefox.
   programs.firefox.enable = true;
 
   programs.hyprland = {
@@ -219,96 +101,6 @@
         monospace-font-name = "Noto Sans Mono Medium 11";
       };
     }
-  ];
-
-
-  # Allow unfree packages
-  nixpkgs.config.allowUnfree = true;
-
-  # List packages installed in system profile. To search, run:
-  # $ nix search wget
-  environment.systemPackages = with pkgs; [
-    gnome-themes-extra
-    xdg-desktop-portal-hyprland
-    # xdg-desktop-portal-gtk
-  #  vim # Do not forget to add an editor to edit configuration.nix! The Nano editor is also installed by default.
-  #  wget
-    waybar
-    hyprpaper
-    hypridle
-    hyprlock
-
-    # Some matrix-style terminal effects
-    cmatrix
-    tmatrix
-    unimatrix
-
-    wofi
-
-
-    # Terminals
-    kitty
-    ghostty
-    starship
-
-    # git
-    just
-    zed-editor
-    # powerline-fonts
-    killall
-    pavucontrol
-    kdePackages.dolphin
-
-    # Search tools
-    ripgrep
-    silver-searcher
-
-    # Blog stuff
-    hugo
-
-    # Nix language server
-    nil
-    nixd
-
-    # Image tools
-    imagemagick
-
-    # Text editor
-    vim
-    neovim
-
-    # Terminal multiplexer
-    tmux
-
-    # Other terminal stuff
-    # pkgs.humanlog
-    direnv
-    curl
-    wget
-
-    # Git stuff
-    git
-    pre-commit
-
-    # Misc stuff
-    tree
-    watch
-    glow
-    jq
-    dropbox-cli
-    neofetch
-
-    # Fingerprint reader
-    fprintd
-
-    # Social Media
-    slack
-    discord
-    hexchat
-
-    # PIM
-    obsidian
-
   ];
 
   # Fingerprint reader
@@ -335,10 +127,7 @@
     powerline-fonts
     powerline-symbols
     nerd-fonts.symbols-only
-    # (nerdfonts.override { fonts = [ "NerdFontsSymbolsOnly" ]; })
-    #nerd-fonts.NerdFontsSymbolsOnly
   ];
-  #fonts.packages = [ ... ] ++ builtins.filter lib.attrsets.isDerivation (builtins.attrValues znerd-fonts)
 
   #environment.kdePackages = with pkgs; [
   #  dolphin
@@ -368,26 +157,6 @@
     allowedTCPPorts = [ 17500 ];
     allowedUDPPorts = [ 17500 ];
   };
-
-  systemd.user.services.dropbox = {
-    description = "Dropbox";
-    wantedBy = [ "graphical-session.target" ];
-    environment = {
-      QT_PLUGIN_PATH = "/run/current-system/sw/" + pkgs.qt5.qtbase.qtPluginPrefix;
-      QML2_IMPORT_PATH = "/run/current-system/sw/" + pkgs.qt5.qtbase.qtQmlPrefix;
-    };
-    serviceConfig = {
-      ExecStart = "${lib.getBin pkgs.dropbox}/bin/dropbox";
-      ExecReload = "${lib.getBin pkgs.coreutils}/bin/kill -HUP $MAINPID";
-      KillMode = "control-group"; # upstream recommends process
-      Restart = "on-failure";
-      PrivateTmp = true;
-      ProtectSystem = "full";
-      Nice = 10;
-    };
-  };
-
-
 
   # This value determines the NixOS release from which the default
   # settings for stateful data, like file locations and database versions
