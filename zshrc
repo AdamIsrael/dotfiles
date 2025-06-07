@@ -111,11 +111,19 @@ fi
 export GOPATH=$HOME/go
 export GOBIN=$GOPATH/bin
 
+# Possible fix for searching through history on NixOS
+bindkey "''${key[Up]}" up-line-or-search
+
 # Load the path based on which OS we're on
 if [[ $(uname) == "Darwin" ]]; then
     export PATH=/Users/adam/Library/Python/3.8/bin:$HOME/.local/bin:$HOME/bin:$GOPATH/bin:/usr/local/bin:/usr/local/sbin:"${PATH}"
 else
-    export PATH=$HOME/.local/bin:$HOME/bin:$GOPATH/bin:/usr/local/bin:/usr/local/sbin:"${PATH}"
+    # TODO: Setup path for NixOS
+    if [[ -e /etc/NIXOS ]]; then
+        export PATH=$HOME/.local/bin:$HOME/bin:${PATH}
+    else
+        export PATH=$HOME/.local/bin:$HOME/bin:$GOPATH/bin:/usr/local/bin:/usr/local/sbin:"${PATH}"
+    fi
 fi
 
 # Perlbrew, if installed
@@ -162,7 +170,9 @@ eval "$(direnv hook zsh)"
 eval "$(starship init zsh)"
 
 # The following lines have been added by Docker Desktop to enable Docker CLI completions.
-fpath=(/Users/adam/.docker/completions $fpath)
-autoload -Uz compinit
-compinit
+if [[ -e /Users/adam/.docker/completions ]]; then
+    fpath=(/Users/adam/.docker/completions $fpath)
+    autoload -Uz compinit
+    compinit
+fi
 # End of Docker CLI completions
