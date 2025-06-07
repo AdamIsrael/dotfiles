@@ -15,6 +15,17 @@ symlink:
     @ln -sf ~/.dotfiles/vimrc ~/.vimrc
     @ln -sf ~/.dotfiles/zshrc ~/.zshrc
 
+# I'm not sure about this yet. Every NixOS host using these dotfiles will be named 'nixos'
+# so a random name might be better?
+# Randomize the hostname. Warning: this may cause some things (like tailscale) to break.
+randomize-hostname:
+    #!/usr/bin/env bash
+    HOSTNAME=$(petname)
+    sed -i -e "s/networking.hostName = \".*\";/networking.hostName = \"${HOSTNAME}\";/g" ~/.dotfiles/nixos/configuration.nix
+    # immediately change the hostname
+    sudo hostname ${HOSTNAME}
+    echo "Your new hostname is '${HOSTNAME}'. Run \`just nix-switch\` to commit this change."
+
 # Install tmux plugin manager (tpm)
 tmux-plugin-manager:
     #!/usr/bin/env bash
