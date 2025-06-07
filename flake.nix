@@ -19,6 +19,11 @@
       url = "github:homebrew/homebrew-cask";
       flake = false;
     };
+
+    nix-your-shell = {
+      url = "github:MercuryTechnologies/nix-your-shell";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs = inputs@{ self, nix-darwin, nix-homebrew, homebrew-core, homebrew-cask,... }:

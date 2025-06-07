@@ -48,3 +48,13 @@ nix-switch:
     else
         sudo darwin-rebuild switch --flake /Users/adam/.dotfiles#tatertot
     fi
+
+# Setup the nix configuration for a new machine
+nix-setup:
+    # Update the hostname used by nix
+    @sed -i '' "s/simple/$(scutil --get LocalHostName)/" flake.nix
+
+[no-cd]
+nix-init-rust:
+    # echo `pwd`
+    @nix flake init -t templates#rust
