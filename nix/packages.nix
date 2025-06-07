@@ -8,6 +8,15 @@
   # $ nix search wget
   environment.systemPackages = with pkgs; [
     rust-petname
+
+    # Applets
+    blueman
+    networkmanagerapplet
+
+    # Rofi
+    rofi
+    rofi-network-manager
+
     gnome-themes-extra
     xdg-desktop-portal-hyprland
     # xdg-desktop-portal-gtk

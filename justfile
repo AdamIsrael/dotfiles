@@ -14,6 +14,17 @@ symlink:
     @#ln -sf ~/.dotfiles/tmux.conf ~/.tmux.conf
     @ln -sf ~/.dotfiles/vimrc ~/.vimrc
     @ln -sf ~/.dotfiles/zshrc ~/.zshrc
+    @ln -sf ~/.dotfiles/config/rofi ~/.config/rofi
+
+# Join my iPhone hotspot
+wifi-join-hotspot:
+    #!/usr/bin/env bash
+    source ~/.secrets
+    # TODO: fail or prompt if IPHONE_WIFI_PASSWORD isn't set.
+    nmcli device wifi connect "Adam’s iPhone" password $IPHONE_WIFI_PASSWORD
+
+wifi-disconnect:
+    @nmcli device disconnect wlp0s20f3
 
 # Login to tailscale (will disconnect a connected session)
 tailscale-login:

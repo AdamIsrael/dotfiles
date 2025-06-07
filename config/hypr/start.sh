@@ -7,6 +7,9 @@ waybar > ~/.waybar.log &
 hypridle &
 
 1password --silent &
+blueman-applet &
+nm-applet &
+
 hyprctl dispatch exec "[workspace special:quake silent] ghostty" &
 
 # If needed, add a sleep here
