@@ -15,6 +15,10 @@ symlink:
     @ln -sf ~/.dotfiles/vimrc ~/.vimrc
     @ln -sf ~/.dotfiles/zshrc ~/.zshrc
 
+# Login to tailscale (will disconnect a connected session)
+tailscale-login:
+    @sudo tailscale login
+
 # I'm not sure about this yet. Every NixOS host using these dotfiles will be named 'nixos'
 # so a random name might be better?
 # Randomize the hostname. Warning: this may cause some things (like tailscale) to break.
