@@ -67,4 +67,4 @@ nix-switch:
 
 # Switch the remote from https to ssh
 use-git-ssh:
-    @git remote set-url origin ssh://ssh@github.com/adamisrael/dotfiles.git
+    @git remote set-url origin ssh://git@github.com/adamisrael/dotfiles.git
