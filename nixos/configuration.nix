@@ -18,6 +18,11 @@
   # Use latest kernel.
   boot.kernelPackages = pkgs.linuxPackages_latest;
 
+  # Testing this on the next reboot
+  # Force use of the thinkpad_acpi driver for backlight control.
+  # This allows the backlight save/load systemd service to work.
+  boot.kernelParams = [ "acpi_backlight=native" ];
+
   networking.hostName = "nixos"; # Define your hostname.
   # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
 
@@ -40,6 +45,34 @@
   # Enable the GNOME Desktop Environment.
   services.xserver.displayManager.gdm.enable = true;
   services.xserver.desktopManager.gnome.enable = true;
+
+  #programs.light.enable = true;
+  # sound.mediaKeys.enable = true;
+  # services.actkbd = {
+  #   enable = true;
+
+  #   bindings = [
+  #     # Mute
+  #     { keys = [ 113 ]; events = [ "key" ];
+  #       command = "${pkgs.alsa-utils}/bin/amixer -q set Master toggle";
+  #     }
+  #     # Volume down
+  #     { keys = [ 114 ]; events = [ "key" "rep" ];
+  #       command = "${pkgs.alsa-utils}/bin/amixer -q set Master 1- unmute";
+  #     }
+  #     # Volume up
+  #     { keys = [ 115 ]; events = [ "key" "rep" ];
+  #       command = "${pkgs.alsa-utils}/bin/amixer -q set Master 1+ unmute";
+  #     }
+  #     # Mic Mute
+  #     { keys = [ 190 ]; events = [ "key" ];
+  #       command = "${pkgs.alsa-utils}/bin/amixer -q set Capture toggle";
+  #     }
+
+  #     { keys = [ 232 ]; events = [ "key" ]; command = "/run/current-system/sw/bin/brightnessctl set 5%- -d intel_backlight"; }
+  #     { keys = [ 233 ]; events = [ "key" ]; command = "/run/current-system/sw/bin/brightnessctl set 5%+ -d intel_backlight"; }
+  #   ];
+  # };
 
   # Configure keymap in X11
   services.xserver.xkb = {

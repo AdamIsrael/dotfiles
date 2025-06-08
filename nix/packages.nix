@@ -13,15 +13,26 @@
     blueman
     networkmanagerapplet
 
+    # Control the screen brightness
+    brightnessctl
+
+    # Sound
+    # alsa-utils
+
     # Rofi
     rofi
     rofi-network-manager
 
+    # Notification daemon
+    # dunst
+    mako
+    libnotify
+
     gnome-themes-extra
     xdg-desktop-portal-hyprland
     # xdg-desktop-portal-gtk
-  #  vim # Do not forget to add an editor to edit configuration.nix! The Nano editor is also installed by default.
-  #  wget
+
+    # hyprland-related packages
     waybar
     hyprpaper
     hypridle
@@ -32,8 +43,8 @@
     tmatrix
     unimatrix
 
+    # app launcher
     wofi
-
 
     # Terminals
     kitty
