@@ -11,11 +11,17 @@ symlink:
     @ln -sf ~/.dotfiles/config/hypr ~/.config/hypr
     @ln -sf ~/.dotfiles/config/waybar ~/.config/waybar
     @ln -sf ~/.dotfiles/ssh/config ~/.ssh/config
+    @ln -sf ~/.dotfiles/config/hexchat ~/.config/hexchat
     @#ln -sf ~/.dotfiles/tmux.conf ~/.tmux.conf
     @ln -sf ~/.dotfiles/vimrc ~/.vimrc
     @ln -sf ~/.dotfiles/zshrc ~/.zshrc
     @ln -sf ~/.dotfiles/config/rofi ~/.config/rofi
     @ln -sf ~/.dotfiles/config/mako ~/.config/mako
+
+# hexchat
+setup-hexchat:
+    op document get Hexchat-servlist.conf > ~/.dotfiles/config/hexchat/servlist.conf
+    op document get Hexchat-chanopt.conf > ~/.dotfiles/config/hexchat/chanopt.conf
 
 # Join my iPhone hotspot
 wifi-join-hotspot:
