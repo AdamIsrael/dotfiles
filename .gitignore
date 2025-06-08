@@ -6,3 +6,10 @@ result
 # ignore nested symlinks
 config/hypr/hypr
 config/waybar/waybar
+
+# Hexchat
+config/hexchat/servlist.conf
+config/hexchat/chanopt.conf
+config/hexchat/url.log
+config/hexchat/scrollback/
+config/hexchat/logs
