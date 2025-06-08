@@ -1,5 +1,6 @@
 # Script to auto-start application(s)
-dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP
+systemctl --user start xdg-desktop-portal
+dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP=hyprland
 hyprpaper &
 # waybar occasionally times out during startup, so capture the logs for debugging.
 # add `-l debug` for verbosity

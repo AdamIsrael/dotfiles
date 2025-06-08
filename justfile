@@ -15,6 +15,7 @@ symlink:
     @ln -sf ~/.dotfiles/vimrc ~/.vimrc
     @ln -sf ~/.dotfiles/zshrc ~/.zshrc
     @ln -sf ~/.dotfiles/config/rofi ~/.config/rofi
+    @ln -sf ~/.dotfiles/config/mako ~/.config/mako
 
 # Join my iPhone hotspot
 wifi-join-hotspot:
@@ -63,3 +64,7 @@ nix-switch:
     else
         sudo darwin-rebuild switch --flake /Users/adam/.dotfiles#tatertot
     fi
+
+# Switch the remote from https to ssh
+use-git-ssh:
+    @git remote set-url origin ssh://ssh@github.com/adamisrael/dotfiles.git
