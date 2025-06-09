@@ -46,6 +46,11 @@
   services.xserver.displayManager.gdm.enable = true;
   services.xserver.desktopManager.gnome.enable = true;
 
+  services.logind.extraConfig = ''
+    # don't shutdown when power button is short-pressed
+    HandlePowerKey=ignore
+  '';
+
   #programs.light.enable = true;
   # sound.mediaKeys.enable = true;
   # services.actkbd = {
