@@ -57,18 +57,20 @@ setup-bluefin:
     #!/bin/bash
     set -eux
 
-    # Remove the firefox flatpak since we're layering it
-    if [ -f /usr/sbin/firefox ]; then
-        appid=org.mozilla.firefox
-        if flatpak info "${appid}" >/dev/null 2>&1; then
-            flatpak remove -y "${appid}"
+    # Flatpak(s) to remove
+    flatpaks="org.mozilla.firefox"
+    for flatpak in $flatpaks ; do
+        if flatpak info "${flatpak}" >/dev/null 2>&1; then
+            flatpak remove -y "${flatpak}"
         fi
-    fi
+    done
 
     # install flatpak(s)
-    flatpaks="halloy slack"
+    flatpaks="org.squidowl.halloy com.slack.Slack md.obsidian.Obsidian"
     for flatpak in $flatpaks ; do
-        flatpak install -y "${flatpak}"
+        if ! flatpak info "${flatpak}" >/dev/null; then
+            flatpak install -y --noninteractive "${flatpak}"
+        fi
     done
 
 
