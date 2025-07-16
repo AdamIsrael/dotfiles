@@ -3,18 +3,73 @@
 default:
   @just --list
 
+# Install the Dropbox daemon
+install-dropbox:
+    #!/bin/bash
+    dropbox start -i
+    echo "Dropbox daemon is installing! Run 'just setup-dropbox' when it has finished."
+
+setup-dropbox:
+    #!/bin/bash
+    # The first time we run this, we need to run start w/ -i to install the dropbox binary
+    if pidof dropbox >/dev/null; then
+        dropbox stop
+
+        # Gracefully wait for dropbox to stop
+        while ! dropbox status | grep -q "Dropbox isn't running!"; do
+            sleep 1
+        done
+        if pidof dropbox >/dev/null; then
+            echo "Couldn't stop dropbox. Stop it manually and try again."
+            exit 1
+        fi
+    fi
+
+    # autostart only works on Ubuntu, so create a systemd unit for dropbox
+    if [ ! -d ~/.config/systemd/user ]; then
+        mkdir -p ~/.config/systemd/user
+    fi
+
+    cat > ~/.config/systemd/user/dropbox.service << EOF
+    [Unit]
+    Description=Dropbox as a user service
+    After=local-fs.target network.target
+
+    [Service]
+    Type=simple
+    ExecStart=%h/.dropbox-dist/dropboxd
+    Restart=on-failure
+    RestartSec=1
+
+    [Install]
+    WantedBy=default.target
+    EOF
+
+    # Start & enable the service
+    systemctl --user enable dropbox
+    systemctl --user start dropbox
+
+    echo "Dropbox started via systemd. Check 'dropbox status' for sync status."
+    echo "Once Dropbox has begun syncing, run 'bin/dropbox-exclude.sh' to limit the folders to sync."
+
 # Setup bluefin by install/removing/configuring flatpaks
 setup-bluefin:
     #!/bin/bash
     set -eux
+
     # Remove the firefox flatpak since we're layering it
-    # Verify we have firefox in the layer
     if [ -f /usr/sbin/firefox ]; then
         appid=org.mozilla.firefox
         if flatpak info "${appid}" >/dev/null 2>&1; then
             flatpak remove -y "${appid}"
         fi
     fi
+
+    # install flatpak(s)
+    flatpaks="halloy slack"
+    for flatpak in $flatpaks ; do
+        flatpak install -y "${flatpak}"
+    done
 
 
 # symlink dotfiles
@@ -26,7 +81,7 @@ symlink:
     @ln -sf ~/.dotfiles/config/waybar ~/.config/waybar
     @ln -sf ~/.dotfiles/ssh/config ~/.ssh/config
     @ln -sf ~/.dotfiles/config/hexchat ~/.config/hexchat
-    @#ln -sf ~/.dotfiles/tmux.conf ~/.tmux.conf
+    @ln -sf ~/.dotfiles/tmux.conf ~/.tmux.conf
     @ln -sf ~/.dotfiles/vimrc ~/.vimrc
     @ln -sf ~/.dotfiles/zshrc ~/.zshrc
     @ln -sf ~/.dotfiles/config/rofi ~/.config/rofi
