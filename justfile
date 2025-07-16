@@ -3,6 +3,20 @@
 default:
   @just --list
 
+# Setup bluefin by install/removing/configuring flatpaks
+setup-bluefin:
+    #!/bin/bash
+    set -eux
+    # Remove the firefox flatpak since we're layering it
+    # Verify we have firefox in the layer
+    if [ -f /usr/sbin/firefox ]; then
+        appid=org.mozilla.firefox
+        if flatpak info "${appid}" >/dev/null 2>&1; then
+            flatpak remove -y "${appid}"
+        fi
+    fi
+
+
 # symlink dotfiles
 symlink:
     @ln -sf ~/.dotfiles/aliases ~/.aliases
