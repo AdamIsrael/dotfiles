@@ -7,15 +7,17 @@ hyprpaper &
 waybar > ~/.waybar.log &
 hypridle &
 
+# Start up the applets
 1password --silent &
 blueman-applet &
 nm-applet &
+dropbox start -i &
 
+# Create a special workspace for a quake-style terminal
 hyprctl dispatch exec "[workspace special:quake silent] ghostty" &
 
-# If needed, add a sleep here
 hyprctl dispatch exec "[workspace 1 silent] firefox" &
-hyprctl dispatch exec "[workspace 2 silent] zeditor" &
-# hyprctl dispatch exec "[workspace 3] discord" &
+hyprctl dispatch exec "[workspace 2 silent] zed" &
+hyprctl dispatch exec "[workspace 3] flatpak run com.discordapp.Discord" &
 # hyprctl dispatch exec "[workspace 4 silent] slack" &
 # hyprctl dispatch exec "[workspace 4 silent] hexchat" &

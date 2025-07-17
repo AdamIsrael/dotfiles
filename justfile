@@ -5,51 +5,11 @@ default:
 
 # Install the Dropbox daemon
 install-dropbox:
+    # I originally wrote a bunch of code to start dropbox via systemd, but then we
+    # don't get a tray icon, so instead I'll auto-start it as part of the hyperland startup.
     #!/bin/bash
     dropbox start -i
-    echo "Dropbox daemon is installing! Run 'just setup-dropbox' when it has finished."
-
-setup-dropbox:
-    #!/bin/bash
-    # The first time we run this, we need to run start w/ -i to install the dropbox binary
-    if pidof dropbox >/dev/null; then
-        dropbox stop
-
-        # Gracefully wait for dropbox to stop
-        while ! dropbox status | grep -q "Dropbox isn't running!"; do
-            sleep 1
-        done
-        if pidof dropbox >/dev/null; then
-            echo "Couldn't stop dropbox. Stop it manually and try again."
-            exit 1
-        fi
-    fi
-
-    # autostart only works on Ubuntu, so create a systemd unit for dropbox
-    if [ ! -d ~/.config/systemd/user ]; then
-        mkdir -p ~/.config/systemd/user
-    fi
-
-    cat > ~/.config/systemd/user/dropbox.service << EOF
-    [Unit]
-    Description=Dropbox as a user service
-    After=local-fs.target network.target
-
-    [Service]
-    Type=simple
-    ExecStart=%h/.dropbox-dist/dropboxd
-    Restart=on-failure
-    RestartSec=1
-
-    [Install]
-    WantedBy=default.target
-    EOF
-
-    # Start & enable the service
-    systemctl --user enable dropbox
-    systemctl --user start dropbox
-
-    echo "Dropbox started via systemd. Check 'dropbox status' for sync status."
+    echo "Dropbox daemon is installing!"
     echo "Once Dropbox has begun syncing, run 'bin/dropbox-exclude.sh' to limit the folders to sync."
 
 # Setup bluefin by install/removing/configuring flatpaks
