@@ -3,6 +3,10 @@
 default:
   @just --list
 
+# Install rust
+install-rust:
+    @curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
+
 # Install the Dropbox daemon
 install-dropbox:
     # I originally wrote a bunch of code to start dropbox via systemd, but then we
@@ -33,6 +37,8 @@ setup-bluefin:
         fi
     done
 
+    # Install brew package(s)
+    brew install humanlog
 
 # symlink dotfiles
 symlink:
