@@ -1,16 +1,16 @@
 * {
     /* `otf-font-awesome` is required to be installed for icons */
     font-family: Roboto, Helvetica, Arial, sans-serif;
-    font-size: 13px;
+    font-size: 10px;
 }
 
 window#waybar {
     /* background-color: rgba(43, 48, 59, 0.5); */
-    background-color: #003B00;
+    background-color: #003b00;
     border-bottom: 3px solid rgba(100, 114, 125, 0.5);
     color: #ffffff;
     transition-property: background-color;
-    transition-duration: .5s;
+    transition-duration: 0.5s;
 }
 
 window#waybar.hidden {
@@ -27,11 +27,11 @@ window#waybar.solo {
 */
 
 window#waybar.termite {
-    background-color: #3F3F3F;
+    background-color: #3f3f3f;
 }
 
 window#waybar.zed {
-    background-color: rgba(00,128,255,0.5);
+    background-color: rgba(00, 128, 255, 0.5);
 }
 
 /* window#waybar.firefox {
@@ -56,23 +56,23 @@ button:hover {
     margin-right: 5px;
     background-color: transparent;
     color: #ffffff;
-    border: 1px solid rgba(255,255,255,0.25);
-    margin: 5px;
-    padding: 10px 15px;
+    border: 1px solid rgba(255, 255, 255, 0.25);
+    /* margin: 5px; */
+    /* padding: 10px 15px; */
 }
 
 #workspaces button:hover {
     background: rgba(0, 0, 0, 0.2);
-    border: 1px solid rgba(255,255,255,0.75);
+    border: 1px solid rgba(255, 255, 255, 0.75);
 }
 
 #workspaces button.focused {
-    background-color: #FF559F;
-    box-shadow: inset 0 -3px #55110F;
+    background-color: #ff559f;
+    box-shadow: inset 0 -3px #55110f;
 }
 
 #workspaces button.urgent {
-    background-color: #EB4D4B;
+    background-color: #eb4d4b;
 }
 
 #mode {
@@ -121,19 +121,19 @@ button:hover {
 
 #clock {
     /* background-color: #191919; */
-    background-color: #003B00;
+    background-color: #003b00;
 
-    border-radius: 5px;
-    padding-top: 5px;
-    margin-top: 10px;
-    margin-bottom: 10px;
-    font-size: 20px;
+    /* border-radius: 5px; */
+    /* padding-top: 5px; */
+    /* margin-top: 10px; */
+    /* margin-bottom: 10px; */
+    font-size: 15px;
     font-family: Tickerbit;
 }
 
 #battery {
     /* background-color: #ffffff; */
-    background-color: #008F11;
+    background-color: #008f11;
 
     color: #000000;
     border-radius: 10px;
@@ -143,9 +143,10 @@ button:hover {
     margin-top: 10px;
 }
 
-#battery.charging, #battery.plugged {
-    color: #FFFFFF;
-    background-color: #26A65B;
+#battery.charging,
+#battery.plugged {
+    color: #ffffff;
+    background-color: #26a65b;
 }
 
 @keyframes blink {
@@ -190,7 +191,7 @@ label:focus {
 }
 
 #cpu {
-    background-color: #008F11;
+    background-color: #008f11;
 
     color: #000000;
     margin-left: 0;
@@ -199,39 +200,39 @@ label:focus {
 }
 
 #memory {
-    background-color: #008F11;
+    background-color: #008f11;
     color: #000000;
     margin-top: 10px;
     margin-bottom: 10px;
 }
 
 #disk {
-    background-color: #008F11;
+    background-color: #008f11;
     margin-top: 10px;
     margin-bottom: 10px;
 }
 
 #backlight {
-    background-color: #008F11;
+    background-color: #008f11;
     color: #000000;
     margin-top: 10px;
     margin-bottom: 10px;
 }
 
 #network {
-    background-color: #008F11;
+    background-color: #008f11;
     color: #000000;
     margin-top: 10px;
     margin-bottom: 10px;
 }
 
 #network.disconnected {
-    background-color: #800D28; /*#f53c3c;*/
-    color: #E6DEDD;
+    background-color: #800d28; /*#f53c3c;*/
+    color: #e6dedd;
 }
 
 #bluetooth {
-    background-color: #008F11;
+    background-color: #008f11;
     color: #000000;
     padding: 0px 20px;
     margin-top: 10px;
@@ -239,7 +240,7 @@ label:focus {
 }
 
 #pulseaudio {
-    background-color: #008F11;
+    background-color: #008f11;
     color: #000000;
     border-radius: 10px 0 0 10px;
     margin-top: 10px;
@@ -247,7 +248,7 @@ label:focus {
 }
 
 #pulseaudio.muted {
-    background-color: #F1C40F;
+    background-color: #f1c40f;
     color: #000000;
 }
 
@@ -275,7 +276,7 @@ label:focus {
 }
 
 #temperature {
-    background-color: #008F11;
+    background-color: #008f11;
     color: #000000;
     margin-top: 10px;
     margin-bottom: 10px;
@@ -286,7 +287,7 @@ label:focus {
 }
 
 #tray {
-    background-color: rgba(0,0,0,.25);
+    background-color: rgba(0, 0, 0, 0.25);
     border-radius: 10px;
 }
 
@@ -317,7 +318,7 @@ label:focus {
 }
 
 #language {
-    background: #F1C40F;
+    background: #f1c40f;
     color: #740864;
     padding: 0 20px;
     margin: 0 5px 0 0;
@@ -348,13 +349,13 @@ label:focus {
 
 #scratchpad {
     background: rgba(0, 0, 0, 0.2);
-    border: 1px solid rgba(255,255,255,0.25);
+    border: 1px solid rgba(255, 255, 255, 0.25);
     margin: 5px 10px 5px 10px;
     padding: 10px 15px;
 }
 
 #scratchpad.empty {
-	background-color: transparent;
+    background-color: transparent;
 }
 
 #privacy {
