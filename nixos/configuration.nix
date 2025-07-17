@@ -39,6 +39,10 @@
   # Select internationalisation properties.
   i18n.defaultLocale = "en_CA.UTF-8";
 
+  # Enable scanner
+  hardware.sane.enable = true;
+  hardware.sane.extraBackends = [ pkgs.sane-airscan ];
+  services.udev.packages = [ pkgs.sane-airscan ];
   # Enable the X11 windowing system.
   services.xserver.enable = true;
 
@@ -47,8 +51,8 @@
   services.xserver.desktopManager.gnome.enable = true;
 
   services.logind.extraConfig = ''
-    # don't shutdown when power button is short-pressed
-    HandlePowerKey=ignore
+    # Suspend if the power key is short-pressed
+    HandlePowerKey=suspend
   '';
 
   #programs.light.enable = true;
@@ -112,7 +116,7 @@
     isNormalUser = true;
     description = "Adam Israel";
     shell = pkgs.zsh;
-    extraGroups = [ "networkmanager" "wheel" ];
+    extraGroups = [ "networkmanager" "wheel" "scanner" "lp" ];
     # packages = with pkgs; [
     #  thunderbird
     # ];
