@@ -30,7 +30,12 @@ setup-bluefin:
     done
 
     # install flatpak(s)
-    flatpaks="org.squidowl.halloy com.slack.Slack md.obsidian.Obsidian"
+    flatpaks=(
+        "com.discordapp.Discord"
+        "org.squidowl.halloy"
+        "com.slack.Slack"
+        "md.obsidian.Obsidian"
+    )
     for flatpak in $flatpaks ; do
         if ! flatpak info "${flatpak}" >/dev/null; then
             flatpak install -y --noninteractive "${flatpak}"
@@ -39,6 +44,13 @@ setup-bluefin:
 
     # Install brew package(s)
     brew install humanlog
+
+# Install zed
+install-zed:
+    #!/bin/bash
+    if [ ! -f ~/.local/bin/zed ]; then
+        curl -f https://zed.dev/install.sh | sh
+    fi
 
 # symlink dotfiles
 symlink:
