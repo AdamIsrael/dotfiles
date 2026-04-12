@@ -11,9 +11,31 @@ symlink:
     @ln -sf ~/.dotfiles/config/hypr ~/.config/hypr
     @ln -sf ~/.dotfiles/config/waybar ~/.config/waybar
     @ln -sf ~/.dotfiles/ssh/config ~/.ssh/config
+    @ln -sf ~/.dotfiles/config/hexchat ~/.config/hexchat
     @#ln -sf ~/.dotfiles/tmux.conf ~/.tmux.conf
     @ln -sf ~/.dotfiles/vimrc ~/.vimrc
     @ln -sf ~/.dotfiles/zshrc ~/.zshrc
+    @ln -sf ~/.dotfiles/config/rofi ~/.config/rofi
+    @ln -sf ~/.dotfiles/config/mako ~/.config/mako
+
+# hexchat
+setup-hexchat:
+    op document get Hexchat-servlist.conf > ~/.dotfiles/config/hexchat/servlist.conf
+    op document get Hexchat-chanopt.conf > ~/.dotfiles/config/hexchat/chanopt.conf
+
+# Join my iPhone hotspot
+wifi-join-hotspot:
+    #!/usr/bin/env bash
+    source ~/.secrets
+    # TODO: fail or prompt if IPHONE_WIFI_PASSWORD isn't set.
+    nmcli device wifi connect "Adam’s iPhone" password $IPHONE_WIFI_PASSWORD
+
+wifi-disconnect:
+    @nmcli device disconnect wlp0s20f3
+
+# Login to tailscale (will disconnect a connected session)
+tailscale-login:
+    @sudo tailscale login
 
 # I'm not sure about this yet. Every NixOS host using these dotfiles will be named 'nixos'
 # so a random name might be better?
@@ -39,22 +61,6 @@ tmux-plugin-manager:
         echo "tpm installed! Run <prefix>-i to install plugins."
     fi
 
-# Apply nix system configuration
-nix-switch:
-    #!/usr/bin/env bash
-    if [ -e /etc/NIXOS ]; then
-        sudo cp ~/.dotfiles/nixos/configuration.nix /etc/nixos
-        sudo nixos-rebuild switch
-    else
-        sudo darwin-rebuild switch --flake /Users/adam/.dotfiles#tatertot
-    fi
-
-# Setup the nix configuration for a new machine
-nix-setup:
-    # Update the hostname used by nix
-    @sed -i '' "s/simple/$(scutil --get LocalHostName)/" flake.nix
-
-[no-cd]
-nix-init-rust:
-    # echo `pwd`
-    @nix flake init -t templates#rust
+# Switch the remote from https to ssh
+use-git-ssh:
+    @git remote set-url origin ssh://git@github.com/adamisrael/dotfiles.git
