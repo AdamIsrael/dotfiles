@@ -61,16 +61,6 @@ tmux-plugin-manager:
         echo "tpm installed! Run <prefix>-i to install plugins."
     fi
 
-# Apply nix system configuration
-nix-switch:
-    #!/usr/bin/env bash
-    if [ -e /etc/NIXOS ]; then
-        sudo cp ~/.dotfiles/nixos/configuration.nix /etc/nixos
-        sudo nixos-rebuild switch
-    else
-        sudo darwin-rebuild switch --flake /Users/adam/.dotfiles#tatertot
-    fi
-
 # Switch the remote from https to ssh
 use-git-ssh:
     @git remote set-url origin ssh://git@github.com/adamisrael/dotfiles.git
