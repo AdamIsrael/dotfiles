@@ -176,3 +176,8 @@ if [[ -e /Users/adam/.docker/completions ]]; then
     compinit
 fi
 # End of Docker CLI completions
+
+# Added by LM Studio CLI (lms)
+export PATH="$PATH:/Users/adam/.lmstudio/bin"
+# End of LM Studio CLI section
+
